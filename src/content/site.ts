@@ -4,7 +4,7 @@
 export const contact = {
   whatsapp: "917698363615", // country code + number, used for wa.me links
   phone: "+91 76983 63615",
-  email: "", // TODO: real email ("" hides it; the Carrd email button is still a placeholder)
+  email: "jayesh.adhikari5@gmail.com",
   instagram: "jayesh_adhikari",
   youtube: "https://www.youtube.com/@jayeshadhikarifilms",
   hireForm: "https://docs.google.com/forms/d/e/1FAIpQLSfook7DdaM8ZO7rUSCCk3gAXz1HvFG9cVtZqUWsloHLr1wQkg/viewform",
