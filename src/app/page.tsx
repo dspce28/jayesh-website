@@ -1,7 +1,23 @@
+import { Briefcase, CircleHelp, Clapperboard, Film, Layers, Mail, Send, Sparkles, UserRound, Wrench } from "lucide-react";
 import BriefForm from "@/components/BriefForm";
+import Clock from "@/components/Clock";
+import InView from "@/components/InView";
+import ProfileCard from "@/components/ProfileCard";
+import RailNav from "@/components/RailNav";
+import ServicesAccordion from "@/components/ServicesAccordion";
 import Timeline from "@/components/Timeline";
+import WorkHighlights from "@/components/WorkHighlights";
 import SceneLoader from "@/components/three/SceneLoader";
-import { about, contact, faq, services, site, steps, whatToSend, work } from "@/content/site";
+import { about, contact, faq, formats, journey, quote, site, stats, steps, tools, whatToSend } from "@/content/site";
+
+function Tag({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <p className="tag-pill">
+      {icon}
+      {children}
+    </p>
+  );
+}
 
 export default function Home() {
   return (
@@ -9,192 +25,175 @@ export default function Home() {
       <a className="skip" href="#contact">
         Skip to contact
       </a>
+      <SceneLoader />
 
-      <div className="top" id="top">
-        <SceneLoader />
-        <header className="site-head">
-          <div className="wrap">
-            <a className="brand" href="#top">
-              {site.name}
-              <small>{site.tagline}</small>
-            </a>
-            <nav className="nav" aria-label="Main">
-              <a href="#work">Work</a>
-              <a href="#about">About</a>
-              <a href="#services">Services</a>
-              <a href="#process">How it works</a>
-              <a href="#faq">Questions</a>
-              <a className="btn btn-solid" href="#contact">
-                Send your footage
-              </a>
-            </nav>
-          </div>
-        </header>
+      <div className="shell">
+        <ProfileCard />
 
-        <div className="hero">
-          <div className="wrap">
+        <main className="content">
+          <header className="content-head">
+            <div className="who">
+              <span className="who-avatar" aria-hidden>
+                JA
+              </span>
+              <span>
+                <strong>{site.name}</strong>
+                <span>{site.tagline}</span>
+              </span>
+            </div>
+            <Clock />
+          </header>
+
+          {/* Hero */}
+          <section id="top" className="hero">
             <h1>
-              Shoot aapka.
-              <br />
-              Edit mera.
+              I cut <mark className="hl-solid">short films</mark> <mark className="hl-soft">&amp; ad films</mark> that people
+              remember
             </h1>
-            <p className="lede">
-              I&apos;m Jayesh Adhikari, a filmmaker and film editor. I edit short films, ad films and brand videos for
-              filmmakers who want their footage to feel like the film they imagined.
-            </p>
-            <div className="actions">
-              <a className="btn btn-solid" href="#contact">
-                Send your footage
-              </a>
-              <a className="btn btn-line" href="#work">
-                See my work
-              </a>
-            </div>
             <Timeline />
-          </div>
-        </div>
-      </div>
-
-      <main>
-        <section id="work">
-          <div className="wrap">
-            <div className="section-head">
-              <h2>Selected work</h2>
-              <p>Short films, ad films and brand videos I have edited. Tap a row to watch.</p>
-            </div>
-            <div className="list">
-              {work.map((w) => {
-                const inner = (
-                  <>
-                    <span
-                      className="thumb"
-                      aria-hidden
-                      style={w.thumb ? { backgroundImage: `url('${w.thumb}')` } : undefined}
-                    />
-                    <span>
-                      <span className="row-title">{w.title}</span>
-                      <span className="row-type">{w.type}</span>
-                    </span>
-                    <span className="row-len">{w.length}</span>
-                    <span className="row-role">{w.role}</span>
-                  </>
-                );
-                return w.href ? (
-                  <a key={w.title} className="row" href={w.href} target="_blank" rel="noopener">
-                    {inner}
-                  </a>
-                ) : (
-                  <div key={w.title} className="row">
-                    {inner}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="about" id="about">
-          <div className="wrap">
-            <div>
-              <h2>{about.heading}</h2>
-              {about.body.map((p) => (
-                <p className="lede" key={p}>
-                  {p}
-                </p>
+            <ul className="stats">
+              {stats.map((s) => (
+                <li key={s.label}>
+                  <strong>{s.value}</strong>
+                  <span>{s.label}</span>
+                </li>
               ))}
-              <ul className="roles" aria-label="Roles">
-                {about.roles.map((r) => (
-                  <li key={r}>{r}</li>
+            </ul>
+          </section>
+
+          {/* Formats marquee */}
+          <section className="formats" aria-label="What I cut">
+            <p className="formats-label">
+              <Film size={16} aria-hidden /> What I cut
+            </p>
+            <div className="marquee">
+              <ul>
+                {[...formats, ...formats].map((f, i) => (
+                  <li key={i} aria-hidden={i >= formats.length}>
+                    {f}
+                  </li>
                 ))}
               </ul>
             </div>
-            <div className="credits">
-              <h3>Stage and screen</h3>
-              <ol>
-                {about.credits.map((c) => (
-                  <li key={c.title}>
-                    <span className="yr">{c.year}</span>
-                    <span>
-                      <b>{c.title}</b>
-                      <span>{c.note}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="services" id="services">
-          <div className="wrap">
-            <div className="intro">
-              <h2>What I edit</h2>
-              <p>
-                Whatever the size of your project, you get one editor who is also a filmmaker and understands what you
-                were trying to shoot.
-              </p>
-            </div>
-            <div>
-              {services.map((s) => (
-                <div className="svc" key={s.title}>
-                  <h3>{s.title}</h3>
-                  <p>{s.body}</p>
-                </div>
+          {/* About */}
+          <section id="about">
+            <Tag icon={<UserRound size={14} aria-hidden />}>About</Tag>
+            <h2 className="title">{about.heading}</h2>
+            <div className="prose">
+              {about.body.map((p) => (
+                <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
-        </section>
+            <h3 className="subhead">Stage and screen</h3>
+            <ul className="rows">
+              {about.credits.map((c) => (
+                <li key={c.title}>
+                  <span>
+                    <strong>{c.title}</strong>
+                    <span>{c.note}</span>
+                  </span>
+                  <span className="rows-year">{c.year}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        <section className="first">
-          <div className="wrap">
-            <div>
-              <h2>First film? Send it as it is.</h2>
-              <p className="lede">
-                Messy folders, unnamed clips, no clear shot list. That is normal. Share what you have and I will sort it
-                out and tell you honestly what the film needs.
+          {/* Journey */}
+          <section id="journey">
+            <Tag icon={<Briefcase size={14} aria-hidden />}>Training &amp; journey</Tag>
+            <ol className="journey">
+              {journey.map((j) => (
+                <li key={j.title}>
+                  <span className="journey-when">{j.period}</span>
+                  <span className="journey-dot" aria-hidden />
+                  <div>
+                    <h3>{j.title}</h3>
+                    <p>{j.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* Work */}
+          <section id="work">
+            <Tag icon={<Sparkles size={14} aria-hidden />}>Work highlights</Tag>
+            <WorkHighlights />
+          </section>
+
+          {/* Services */}
+          <section id="services">
+            <Tag icon={<Layers size={14} aria-hidden />}>Services</Tag>
+            <ServicesAccordion />
+          </section>
+
+          {/* First film */}
+          <section className="first">
+            <div className="first-card">
+              <Clapperboard size={28} className="first-icon" aria-hidden />
+              <h2 className="title">First film? Send it as it is.</h2>
+              <p className="first-lede">
+                Messy folders, unnamed clips, no clear shot list. That is normal. Share what you have and I will sort it out
+                and tell you honestly what the film needs.
               </p>
-              <p style={{ marginTop: 28 }}>
-                <a className="btn btn-paper" href="#contact">
-                  Tell me about your film
-                </a>
-              </p>
-            </div>
-            <div className="send">
-              <h3>What to send</h3>
-              <ul>
+              <ul className="send-list">
                 {whatToSend.map((s) => (
                   <li key={s.title}>
-                    <b>{s.title}</b>
+                    <strong>{s.title}</strong>
                     <span>{s.body}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="process">
-          <div className="wrap">
-            <div className="section-head">
-              <h2>How it works</h2>
-              <p>Four steps from raw footage to a film you can release.</p>
-            </div>
-            <div className="steps">
+          {/* Tools */}
+          <section id="tools">
+            <Tag icon={<Wrench size={14} aria-hidden />}>Tools</Tag>
+            <h2 className="title">The suite I cut, grade and mix in</h2>
+            <InView as="ul" className="tools">
+              {tools.map((t) => (
+                <li key={t.name}>
+                  <span className="tool-mark" style={{ color: t.color, background: t.bg }} aria-hidden>
+                    {t.mark}
+                  </span>
+                  <span className="tool-name">
+                    <strong>{t.name}</strong>
+                    <span>{t.note}</span>
+                  </span>
+                  <span className="tool-bar" role="img" aria-label={`${t.level}%`}>
+                    <span style={{ "--w": `${t.level}%` } as React.CSSProperties}>
+                      <em>{t.level}%</em>
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </InView>
+          </section>
+
+          {/* Process */}
+          <section className="process" aria-labelledby="process-title">
+            <h2 className="title" id="process-title">
+              How it works
+            </h2>
+            <ol className="steps">
               {steps.map((s, i) => (
-                <div className="step" key={s.title}>
-                  <div className="step-no">{i + 1}</div>
+                <li key={s.title}>
+                  <span className="step-no">{String(i + 1).padStart(2, "0")}</span>
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
-                </div>
+                </li>
               ))}
-            </div>
-          </div>
-        </section>
+            </ol>
+          </section>
 
-        <section className="faq" id="faq">
-          <div className="wrap">
-            <h2>Questions filmmakers ask</h2>
-            <div>
+          {/* FAQ */}
+          <section id="faq">
+            <Tag icon={<CircleHelp size={14} aria-hidden />}>Questions</Tag>
+            <h2 className="title">Questions filmmakers ask</h2>
+            <div className="faq">
               {faq.map((f) => (
                 <details key={f.q}>
                   <summary>{f.q}</summary>
@@ -202,46 +201,41 @@ export default function Home() {
                 </details>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="contact" id="contact">
-          <div className="wrap">
-            <div>
-              <h2>Tell me about your film</h2>
-              <p className="lede">
-                Fill in the short brief and it opens in WhatsApp, ready to send. I reply with questions or a quote.
-              </p>
-              <ul className="direct">
-                <li>
-                  <span>WhatsApp</span>
-                  <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener">
-                    Message me
-                  </a>
-                </li>
-                <li>
-                  <span>Email</span>
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                </li>
-                <li>
-                  <span>Instagram</span>
-                  <a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener">
-                    @{contact.instagram}
-                  </a>
-                </li>
-              </ul>
-            </div>
+          {/* Contact */}
+          <section id="contact">
+            <Tag icon={<Send size={14} aria-hidden />}>Contact</Tag>
+            <h2 className="title big">
+              Have footage waiting? Send me a short brief and it opens in WhatsApp, ready to go.
+            </h2>
             <BriefForm />
-          </div>
-        </section>
-      </main>
+            <a className="contact-mail" href={`mailto:${contact.email}`}>
+              <Mail size={18} aria-hidden /> {contact.email}
+            </a>
+          </section>
 
-      <footer>
-        <div className="wrap">
-          <span>Jayesh Adhikari, filmmaker and film editor, Ahmedabad</span>
-          <span>© {new Date().getFullYear()}</span>
-        </div>
-      </footer>
+          <section className="quote" aria-label="Motto">
+            <blockquote>
+              <p>“{quote.text}”</p>
+              <footer>{quote.by}</footer>
+            </blockquote>
+          </section>
+
+          <footer className="site-foot">
+            <div className="foot-name" aria-hidden>
+              <span>Jayesh</span>
+              <span className="outline">Adhikari</span>
+            </div>
+            <p>
+              Filmmaker and film editor, Ahmedabad
+              <br />© {new Date().getFullYear()} Jayesh Adhikari
+            </p>
+          </footer>
+        </main>
+
+        <RailNav />
+      </div>
     </>
   );
 }

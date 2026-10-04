@@ -1,15 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders, Instrument_Sans } from "next/font/google";
+import { Familjen_Grotesk, Inter } from "next/font/google";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const display = Big_Shoulders({
+const display = Familjen_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
-  axes: ["opsz"],
 });
 
-const body = Instrument_Sans({
+const body = Inter({
   variable: "--font-body",
   subsets: ["latin"],
 });
@@ -26,7 +25,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#E6E8E3",
+  themeColor: "#0b0b0d",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

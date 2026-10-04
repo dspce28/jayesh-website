@@ -54,7 +54,7 @@ export default function BriefForm() {
       <p className="status" role="status">
         {status}
       </p>
-      <button className="btn btn-solid" type="submit">
+      <button className="pill accent" type="submit">
         Send on WhatsApp
       </button>
     </form>

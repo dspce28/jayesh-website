@@ -5,41 +5,43 @@ export const contact = {
   whatsapp: "91XXXXXXXXXX", // TODO: country code + number, no + or spaces. Example: 919876543210
   email: "hello@yourdomain.com", // TODO
   instagram: "jayesh_adhikari", // TODO: confirm handle
+  youtube: "https://www.youtube.com/channel/UCNngy-8ek_PfBge8h4K65qQ",
 };
+
+// Portrait for the profile card. Drop the file into /public and set the path ("" = monogram placeholder).
+export const portrait = ""; // TODO: e.g. "/jayesh.jpg" (portrait orientation, ~900x1200)
+
+// Words the profile card types after "Hey, I'm".
+export const typingWords = ["Jayesh", "a film editor", "a filmmaker", "a storyteller"];
 
 export const site = {
   name: "Jayesh Adhikari",
   tagline: "Filmmaker and film editor, Ahmedabad",
+  intro: "I edit short films, ad films and brand videos for filmmakers who want their footage to feel like the film they imagined. Based in Ahmedabad.",
   title: "Jayesh Adhikari | Filmmaker and film editor in Ahmedabad",
   description:
     "Jayesh Adhikari edits short films, ad films and brand videos for filmmakers. Send your footage and get a cut you can be proud of.",
 };
 
-// TODO: replace each row with a real project.
-// href: YouTube / Vimeo / Drive link ("" = not clickable yet).
-// thumb: path to an image in /public, e.g. "/work/short-film.jpg" ("" = plain dark frame).
-export const work = [
-  { title: "Short film title", type: "Short film", length: "12 min", role: "Edit, sound and colour", href: "", thumb: "" },
-  { title: "Ad film title", type: "Ad film for a brand", length: "45 sec", role: "Edit and cutdowns", href: "", thumb: "" },
-  { title: "Music video title", type: "Music video", length: "4 min", role: "Edit and colour", href: "", thumb: "" },
-  { title: "Brand video title", type: "Brand video", length: "2 min", role: "Edit and motion titles", href: "", thumb: "" },
-];
-
 export const services = [
   {
     title: "Short films and features",
+    tags: ["Story", "Pacing", "Performance"],
     body: "A story-first cut. I work on pacing, performance, sound and music so the film holds attention from the first frame.",
   },
   {
     title: "Ad films and brand videos",
+    tags: ["15 / 30 / 60 sec", "Cutdowns", "On brief"],
     body: "Sharp, on-brief edits for 15, 30 and 60 second spots, with cutdowns for every platform you need.",
   },
   {
     title: "Reels and social cuts",
+    tags: ["9:16", "1:1", "Captions"],
     body: "Vertical and square versions of your film for Instagram and YouTube Shorts, ready to post.",
   },
   {
     title: "Colour and sound polish",
+    tags: ["Colour correction", "Audio cleanup", "Mix"],
     body: "Basic colour correction, audio cleanup and mixing, so your film plays well on phones, TVs and festival screens.",
   },
 ];
@@ -121,20 +123,56 @@ export const timeline: { duration: number; fps: number; tracks: TimelineTrack[] 
   ],
 };
 
+
+export const stats = [
+  { value: "2011", label: "On stage and screen since" },
+  { value: "BPA + MPA", label: "Performing arts degrees" },
+];
+
+export const formats = ["Short films", "Ad films", "Brand videos", "Music videos", "Reels and social cuts", "Colour and sound"];
+
 // About — sourced from Jayesh's public blog (jayeshadhikari.blogspot.com).
-// TODO: confirm with Jayesh, add recent credits, and add a portrait at /public/jayesh.jpg.
+// TODO: confirm with Jayesh and add recent credits.
 export const about = {
-  heading: "An editor trained on stage",
+  heading: "An editor trained on stage, cutting for performance",
   body: [
     "I studied performing arts in Ahmedabad, with a bachelor's and a master's degree, and spent years acting in and directing theatre before I sat down at an edit timeline.",
     "That is still how I cut. I watch for the performance first: the pause before a line, the look that lands, the moment a scene turns. Then I build the rhythm, sound and music around it.",
   ],
-  roles: ["Filmmaker", "Film editor", "Theatre director", "Actor", "Singer and composer"],
   credits: [
-    { year: "2015", title: "Rangmanch", note: "Gujarati play, director" },
-    { year: "—", title: "Saari Raat", note: "by Badal Sircar, director" },
-    { year: "—", title: "Shanivaar Ko Do Baje", note: "by Surendra Varma, director" },
-    { year: "2012", title: "Why I?", note: "Short film" },
-    { year: "2011", title: "Char Din", note: "by Vijay Tendulkar, stage" },
+    { title: "Rangmanch", note: "Gujarati play, director", year: "2015" },
+    { title: "Saari Raat", note: "by Badal Sircar, director", year: "" },
+    { title: "Shanivaar Ko Do Baje", note: "by Surendra Varma, director", year: "" },
+    { title: "Why I?", note: "Short film", year: "2012" },
+    { title: "Char Din", note: "by Vijay Tendulkar, stage", year: "2011" },
   ],
+};
+
+// TODO: confirm periods with Jayesh.
+export const journey = [
+  { period: "Now", title: "Filmmaker and film editor", body: "Editing short films, ad films and brand videos for independent filmmakers and brands." },
+  { period: "2014 – 2015", title: "Theatre director", body: "Directed Rangmanch and worked with Rep Market Production on stage work in Ahmedabad." },
+  { period: "TODO", title: "Master of Performing Arts", body: "Advanced study in acting, direction and stagecraft." },
+  { period: "2011", title: "Bachelor of Performing Arts", body: "Acting and theatre training; staged Insani Kathputlio Ka Tamasha and Char Din." },
+];
+
+// TODO: replace with real projects. href: watch link ("" = not clickable). thumb: image in /public ("" = gradient frame).
+export const projects = [
+  { title: "Short film title", description: "A story-first cut built around the lead performance.", year: "2025", role: "Editor, sound and colour", tags: ["Short film", "Edit", "Colour"], length: "12 min", href: "", thumb: "" },
+  { title: "Ad film title", description: "A 45 second spot with cutdowns for every platform.", year: "2025", role: "Editor", tags: ["Ad film", "Cutdowns"], length: "45 sec", href: "", thumb: "" },
+  { title: "Music video title", description: "Rhythm-led edit and grade for an independent artist.", year: "2024", role: "Editor and colourist", tags: ["Music video", "Colour"], length: "4 min", href: "", thumb: "" },
+  { title: "Brand video title", description: "Brand story with motion titles and a clean sound mix.", year: "2024", role: "Editor and motion titles", tags: ["Brand video", "Motion"], length: "2 min", href: "", thumb: "" },
+];
+
+// TODO: confirm which tools Jayesh uses and how much. level is 0-100.
+export const tools = [
+  { name: "Adobe Premiere Pro", note: "Editing", level: 90, mark: "Pr", color: "#9999FF", bg: "#00005B" },
+  { name: "DaVinci Resolve", note: "Colour and finishing", level: 75, mark: "Da", color: "#E8E8E8", bg: "#233A51" },
+  { name: "Adobe After Effects", note: "Motion titles", level: 60, mark: "Ae", color: "#D291FF", bg: "#00005B" },
+  { name: "Adobe Audition", note: "Sound cleanup and mix", level: 65, mark: "Au", color: "#00E4BB", bg: "#00005B" },
+];
+
+export const quote = {
+  text: "Shoot aapka. Edit mera.",
+  by: "Jayesh Adhikari",
 };

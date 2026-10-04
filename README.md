@@ -7,18 +7,25 @@ Next.js (App Router) + Three.js (`@react-three/fiber`). Deployed on Vercel.
 
 Everything editable is in **`src/content/site.ts`**:
 
-- `contact` — WhatsApp number, email, Instagram handle (**WhatsApp must be set before the brief form works**)
-- `work` — portfolio rows. Set `href` to a YouTube/Vimeo/Drive link and `thumb` to an image in `public/`
-- `about` — bio and stage/screen credits (taken from Jayesh's public blog; confirm before launch)
-- `services`, `whatToSend`, `steps`, `faq`, `projectTypes`, `timeline`
+- `contact` — WhatsApp number, email, Instagram, YouTube (**WhatsApp must be set before the brief form works**)
+- `portrait` — path to Jayesh's photo in `public/` (empty = monogram placeholder in the profile card)
+- `projects` — work highlights. `href` = watch link, `thumb` = image in `public/`. The sticky profile card shows each project's details as it scrolls past
+- `about`, `journey` — bio, credits and training (taken from Jayesh's public blog; confirm before launch)
+- `tools` — editing suite and proficiency bars (placeholders; confirm)
+- `typingWords`, `stats`, `formats`, `services`, `whatToSend`, `steps`, `faq`, `projectTypes`, `timeline`, `quote`
 
 ## Structure
 
+Layout follows a two-column portfolio template: sticky profile card on the left, scrolling content
+on the right, section rail with scrollspy on the far right.
+
 - `src/app/page.tsx` — all sections
-- `src/components/Timeline.tsx` — draggable edit-timeline hero (pointer + keyboard accessible)
-- `src/components/BriefForm.tsx` — brief form that opens a pre-filled WhatsApp message
-- `src/components/three/FilmLight.tsx` — WebGL light-leak + film-grain shader behind the hero, follows the pointer; static under `prefers-reduced-motion`
-- `src/app/globals.css` — design tokens and styles
+- `src/components/ProfileCard.tsx` — sticky card: typing intro, socials, availability; turns into project details over the work section
+- `src/components/Timeline.tsx` — draggable edit-timeline hero visual (pointer + keyboard accessible)
+- `src/components/RailNav.tsx` — right-hand section rail with scrollspy
+- `src/components/WorkHighlights.tsx`, `ServicesAccordion.tsx`, `BriefForm.tsx` (opens a pre-filled WhatsApp message), `Clock.tsx` (Ahmedabad time)
+- `src/components/three/Caustics.tsx` — full-page WebGL water-caustics background (follows the pointer; static under `prefers-reduced-motion`)
+- `src/app/globals.css` — design tokens (`--accent` retheme in one line) and styles
 
 ## Develop
 
