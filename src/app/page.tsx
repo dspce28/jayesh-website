@@ -1,7 +1,9 @@
 import { Fragment } from "react";
-import { Briefcase, CircleHelp, Clapperboard, Film, Layers, Mail, Send, Sparkles, UserRound, Wrench } from "lucide-react";
+import { ArrowUpRight, Briefcase, Camera, CircleHelp, Clapperboard, ClipboardList, Film, FolderOpen, Layers, Mail, Phone, Send, Sparkles, UserRound, Wrench } from "lucide-react";
 import BriefForm from "@/components/BriefForm";
 import Clock from "@/components/Clock";
+import Gallery from "@/components/Gallery";
+import { InstagramIcon, WhatsappIcon, YoutubeIcon } from "@/components/icons";
 import InView from "@/components/InView";
 import MobileMenu from "@/components/MobileMenu";
 import ProfileCard from "@/components/ProfileCard";
@@ -185,6 +187,17 @@ export default function Home() {
             <WorkHighlights />
           </section>
 
+          {/* Behind the scenes */}
+          <section id="bts">
+            <Tag icon={<Camera size={14} aria-hidden />}>Behind the scenes</Tag>
+            <h2 className="title" data-reveal>
+              On set, in the studio, at the timeline
+            </h2>
+            <div data-reveal>
+              <Gallery />
+            </div>
+          </section>
+
           {/* Services */}
           <section id="services">
             <Tag icon={<Layers size={14} aria-hidden />}>Services</Tag>
@@ -276,9 +289,76 @@ export default function Home() {
             <div data-reveal>
               <BriefForm />
             </div>
-            <a className="contact-mail" href={`mailto:${contact.email}`} data-magnetic="0.2">
-              <Mail size={18} aria-hidden /> {contact.email}
-            </a>
+            <ul className="direct" data-reveal>
+              <li>
+                <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener">
+                  <WhatsappIcon size={20} />
+                  <span>
+                    <small>WhatsApp</small>
+                    {contact.phone}
+                  </span>
+                  <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>
+                  <Phone size={20} aria-hidden />
+                  <span>
+                    <small>Call</small>
+                    {contact.phone}
+                  </span>
+                  <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener">
+                  <InstagramIcon size={20} />
+                  <span>
+                    <small>Instagram</small>@{contact.instagram}
+                  </span>
+                  <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a href={contact.youtube} target="_blank" rel="noopener">
+                  <YoutubeIcon size={20} />
+                  <span>
+                    <small>YouTube</small>Jayesh Adhikari Films
+                  </span>
+                  <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a href={contact.hireForm} target="_blank" rel="noopener">
+                  <ClipboardList size={20} aria-hidden />
+                  <span>
+                    <small>Prefer a form?</small>Hire me form
+                  </span>
+                  <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a href={contact.portfolio} target="_blank" rel="noopener">
+                  <FolderOpen size={20} aria-hidden />
+                  <span>
+                    <small>Full portfolio</small>Google Drive folder
+                  </span>
+                  <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                </a>
+              </li>
+              {contact.email && (
+                <li>
+                  <a href={`mailto:${contact.email}`}>
+                    <Mail size={20} aria-hidden />
+                    <span>
+                      <small>Email</small>
+                      {contact.email}
+                    </span>
+                    <ArrowUpRight size={18} className="direct-go" aria-hidden />
+                  </a>
+                </li>
+              )}
+            </ul>
           </section>
 
           <section className="quote" aria-label="Motto">

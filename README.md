@@ -7,8 +7,9 @@ Next.js (App Router) + Three.js (`@react-three/fiber`). Deployed on Vercel.
 
 Everything editable is in **`src/content/site.ts`**:
 
-- `contact` — WhatsApp number, email, Instagram (empty = hidden), YouTube (**WhatsApp must be set before the brief form works**)
-- `portrait` — path to Jayesh's photo in `public/` (empty = black-and-white reel of his film stills in the profile card)
+- `contact` — WhatsApp/phone, Instagram, YouTube, hire form, Drive portfolio; `email` is hidden while empty
+- `portrait` — path to Jayesh's photo in `public/` (empty = black-and-white reel of the `reel` on-set photos)
+- `gallery` — behind-the-scenes photos in `public/gallery/` (from his Carrd page), shown as a draggable film strip with a lightbox
 - `projects` — work highlights from YouTube (`youtube` = video id → thumbnail + in-page player). The sticky profile card shows each project's details as it scrolls past
 - `stats`, `workedWith` — from the Jayesh Adhikari Films channel bio
 - `about`, `journey` — bio, credits and training (taken from Jayesh's public blog; confirm before launch)

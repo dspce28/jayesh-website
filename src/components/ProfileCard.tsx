@@ -2,7 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { contact, portrait, projects, site, typingWords } from "@/content/site";
+import { contact, portrait, projects, reel, site, typingWords } from "@/content/site";
 import { InstagramIcon, WhatsappIcon, YoutubeIcon } from "./icons";
 import Typing from "./Typing";
 
@@ -27,17 +27,11 @@ export default function ProfileCard() {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={portrait} alt="" />
         ) : (
-          // No portrait yet: a slow black-and-white reel of stills from his films.
+          // No portrait yet: a slow black-and-white reel of on-set photos.
           <div className="reel">
-            {projects
-              .filter((p) => p.youtube)
-              .slice(0, 5)
-              .map((p, i) => (
-                <span
-                  key={p.youtube}
-                  style={{ backgroundImage: `url('https://i.ytimg.com/vi/${p.youtube}/maxresdefault.jpg')`, "--i": i } as React.CSSProperties}
-                />
-              ))}
+            {reel.map((src, i) => (
+              <span key={src} style={{ backgroundImage: `url('${src}')`, "--i": i } as React.CSSProperties} />
+            ))}
           </div>
         )}
       </div>

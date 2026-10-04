@@ -2,22 +2,28 @@
 // Values marked TODO are placeholders — replace them before going live.
 
 export const contact = {
-  whatsapp: "91XXXXXXXXXX", // TODO: country code + number, no + or spaces. Example: 919876543210
-  email: "hello@yourdomain.com", // TODO
-  instagram: "", // TODO: Instagram handle without @ ("" hides the link; none found publicly)
+  whatsapp: "917698363615", // country code + number, used for wa.me links
+  phone: "+91 76983 63615",
+  email: "", // TODO: real email ("" hides it; the Carrd email button is still a placeholder)
+  instagram: "jayesh_adhikari",
   youtube: "https://www.youtube.com/@jayeshadhikarifilms",
+  hireForm: "https://docs.google.com/forms/d/e/1FAIpQLSfook7DdaM8ZO7rUSCCk3gAXz1HvFG9cVtZqUWsloHLr1wQkg/viewform",
+  portfolio: "https://drive.google.com/drive/folders/1CJDmc3U_WzgSiFaNKeOApFHUI26keZ-B",
 };
 
 // Portrait for the profile card. Drop the file into /public and set the path ("" = monogram placeholder).
-export const portrait = ""; // TODO: e.g. "/jayesh.jpg" (portrait orientation, ~900x1200)
+export const portrait = ""; // TODO: e.g. "/jayesh.jpg" (portrait orientation, ~900x1200). Until set, the card cycles on-set photos.
+
+// Photos for the profile card reel when there is no portrait (from his Carrd gallery).
+export const reel = ["/gallery/camera-operating.jpg", "/gallery/on-set-camera.jpg", "/gallery/interview-setup.jpg", "/gallery/on-set-desk.jpg", "/gallery/presenter-shoot.jpg"];
 
 // Words the profile card types after "Hey, I'm".
-export const typingWords = ["Jayesh", "a film editor", "a filmmaker", "a theatre actor"];
+export const typingWords = ["Jayesh", "a filmmaker", "an editor", "a storyteller", "a creative director"];
 
 export const site = {
   name: "Jayesh Adhikari",
-  tagline: "Filmmaker, theatre actor and film editor, Ahmedabad",
-  intro: "Award-winning filmmaker and film editor. I cut short films, ad films and brand videos for filmmakers who want their footage to feel like the film they imagined.",
+  tagline: "Filmmaker, editor and creative director, Ahmedabad",
+  intro: "Filmmaker and editor who brings emotions to life through storytelling. Through Jayesh Adhikari Films I make short films, ad films and corporate projects that connect with audiences.",
   title: "Jayesh Adhikari | Filmmaker and film editor in Ahmedabad",
   description:
     "Jayesh Adhikari edits short films, ad films and brand videos for filmmakers. Send your footage and get a cut you can be proud of.",
@@ -157,12 +163,14 @@ export const formats = ["Short films", "Ad films", "Brand videos", "Music videos
 
 // About — from the Jayesh Adhikari Films channel bio and his blog (jayeshadhikari.blogspot.com).
 export const about = {
-  heading: "An award-winning filmmaker who cuts for performance",
+  heading: "Every frame tells a story. I cut for the performance in it.",
   body: [
-    "I'm a filmmaker, theatre actor and film editor from Ahmedabad. My short films have been recognised at more than 15 national and international festivals: Haji won at an international film festival in Singapore, and Rukh was selected at the International Children Film Festival.",
+    "I'm a filmmaker and editor from Ahmedabad who brings emotions to life through storytelling. Through Jayesh Adhikari Films I make short films, ad films and corporate projects. More than 15 of my short films have been recognised at national and international festivals: Haji won at an international film festival in Singapore, and Rukh was selected at the International Children Film Festival.",
     "I trained in performing arts, with a bachelor's and a master's degree, and spent years acting in and directing theatre before I sat at an edit timeline. That is still how I cut: performance first, the pause before a line, the look that lands. Then rhythm, sound and music around it.",
   ],
   credits: [
+    { title: "Waah Zindagi", note: "Assistant Director · ZEE5 feature with Sanjay Mishra and Vijay Raaz", year: "2021" },
+    { title: "Bhanwar", note: "Gujarati feature, directed by Aditi Thakor", year: "2017" },
     { title: "Haji", note: "Short film, winner at an international film festival, Singapore", year: "" },
     { title: "Rukh", note: "Selected, International Children Film Festival", year: "" },
     { title: "Restart", note: "Official Selection, Divya Bhaskar Short Film Competition", year: "" },
@@ -175,6 +183,7 @@ export const about = {
 // TODO: confirm periods with Jayesh.
 export const journey = [
   { period: "Now", title: "Jayesh Adhikari Films", body: "Writing, directing and editing short films, plus ad films, brand videos and testimonials for clients. 15+ short films recognised at festivals." },
+  { period: "2021", title: "Assistant Director, Waah Zindagi", body: "ZEE5 feature directed by Dinesh S Yadav, starring Naveen Kasturia, Plabita Borthakur, Vijay Raaz and Sanjay Mishra." },
   { period: "2014 – 2015", title: "Theatre director", body: "Directed Rangmanch and worked with Rep Market Production on stage work in Ahmedabad." },
   { period: "TODO", title: "Master of Performing Arts", body: "Advanced study in acting, direction and stagecraft." },
   { period: "2011", title: "Bachelor of Performing Arts", body: "Acting and theatre training; staged Insani Kathputlio Ka Tamasha and Char Din." },
@@ -248,6 +257,22 @@ export const tools = [
 ];
 
 export const quote = {
-  text: "Shoot aapka. Edit mera.",
+  text: "Every frame tells a story. All it needs is honesty, passion and heart.",
   by: "Jayesh Adhikari",
 };
+
+// Behind the scenes, from his Carrd gallery. w/h are the file's pixel size.
+export const gallery = [
+  { src: "/gallery/on-set-camera.jpg", w: 710, h: 518, caption: "On set" },
+  { src: "/gallery/edit-timeline.jpg", w: 960, h: 1260, caption: "The edit: Restart on the timeline" },
+  { src: "/gallery/waah-zindagi-poster.jpg", w: 1080, h: 1081, caption: "Waah Zindagi (ZEE5), Assistant Director" },
+  { src: "/gallery/camera-operating.jpg", w: 960, h: 1280, caption: "Behind the camera" },
+  { src: "/gallery/studio-setup.jpg", w: 1280, h: 946, caption: "Studio lighting setup" },
+  { src: "/gallery/interview-setup.jpg", w: 720, h: 1280, caption: "Interview shoot" },
+  { src: "/gallery/with-sonu-sood.jpg", w: 1280, h: 1280, caption: "On set with Sonu Sood" },
+  { src: "/gallery/bhanwar-poster.jpg", w: 1066, h: 1600, caption: "Bhanwar (2017), Gujarati feature" },
+  { src: "/gallery/presenter-shoot.jpg", w: 1280, h: 960, caption: "Brand shoot" },
+  { src: "/gallery/jail-set.jpg", w: 960, h: 1138, caption: "Set build" },
+  { src: "/gallery/on-set-desk.jpg", w: 821, h: 630, caption: "Prep" },
+  { src: "/gallery/studio-wide.jpg", w: 1044, h: 612, caption: "Studio floor" },
+];
