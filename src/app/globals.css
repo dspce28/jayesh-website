@@ -900,9 +900,79 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
 .player-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
 .player-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
+/* ---- Mobile menu (no side rail below 960px) ---- */
+.menu-btn, .menu-sheet { display: none; }
 @media (max-width: 960px) {
   .work-title-overlay { display: none; }
-  .scroll-tc { right: 16px; bottom: 16px; }
+  /* The fixed timecode would cover content on small screens; the top bar still shows progress */
+  .scroll-tc { display: none; }
+
+  .menu-btn {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index: 80;
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid var(--line-2);
+    background: rgb(20 20 24 / 0.85);
+    backdrop-filter: blur(12px);
+    color: var(--text);
+    box-shadow: 0 10px 30px -10px #000;
+    transition: background-color 0.3s, color 0.3s, rotate 0.4s;
+  }
+  .menu-btn.is-open { background: var(--accent); color: var(--accent-ink); border-color: transparent; rotate: 90deg; }
+  .menu-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 75;
+    display: flex;
+    align-items: center;
+    padding: 24px 24px calc(96px + env(safe-area-inset-bottom));
+    background: rgb(11 11 13 / 0.96);
+    backdrop-filter: blur(14px);
+    clip-path: circle(0 at calc(100% - 43px) calc(100% - 43px));
+    visibility: hidden;
+    transition: clip-path 0.6s cubic-bezier(.7,0,.2,1), visibility 0s linear 0.6s;
+  }
+  .menu-sheet.is-open { clip-path: circle(150% at calc(100% - 43px) calc(100% - 43px)); visibility: visible; transition: clip-path 0.6s cubic-bezier(.7,0,.2,1), visibility 0s; }
+  .menu-sheet ul { display: grid; gap: 2px; width: 100%; }
+  .menu-sheet a {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 8px 0;
+    font-family: var(--display);
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    translate: 0 20px;
+    transition: opacity 0.4s, translate 0.5s cubic-bezier(.2,.8,.2,1), color 0.2s;
+  }
+  .menu-sheet.is-open a { opacity: 1; translate: 0 0; transition-delay: calc(0.15s + var(--i) * 45ms); }
+  .menu-sheet a:active { color: var(--accent); }
+  .menu-sheet a span { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; letter-spacing: 0; color: var(--accent); }
+  html.menu-open { overflow: hidden; }
+
+  /* Touch-sized targets */
+  .tl-play { width: 44px; height: 44px; }
+  .contact-mail { min-height: 44px; }
+  /* Bigger tap target for the secondary link in the profile card */
+  .profile-actions .link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
+}
+@media (max-width: 600px) {
+  /* Only label 0:00, 1:00 and 2:00 so the ruler doesn't collide on narrow screens */
+  .tick:nth-child(4) span, .tick:nth-child(10) span { display: none; }
+}
+@media (max-width: 420px) {
+  /* Keep the CTA row on one line: the arrow duplicates "Send your footage" */
+  .face-default .profile-actions .icon-btn { display: none; }
+  .profile-actions .link { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -3,6 +3,7 @@ import { Briefcase, CircleHelp, Clapperboard, Film, Layers, Mail, Send, Sparkles
 import BriefForm from "@/components/BriefForm";
 import Clock from "@/components/Clock";
 import InView from "@/components/InView";
+import MobileMenu from "@/components/MobileMenu";
 import ProfileCard from "@/components/ProfileCard";
 import RailNav from "@/components/RailNav";
 import ServicesAccordion from "@/components/ServicesAccordion";
@@ -309,6 +310,7 @@ export default function Home() {
 
         <RailNav />
       </div>
+      <MobileMenu />
     </>
   );
 }
