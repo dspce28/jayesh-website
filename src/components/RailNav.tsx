@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Briefcase, CircleHelp, Clapperboard, House, Layers, Send, UserRound, Wrench } from "lucide-react";
+import { ArrowUp, Briefcase, Camera, CircleHelp, Clapperboard, House, Layers, Send, UserRound, Wrench } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const items = [
@@ -8,6 +8,7 @@ const items = [
   { id: "about", label: "About", Icon: UserRound },
   { id: "journey", label: "Journey", Icon: Briefcase },
   { id: "work", label: "Work", Icon: Clapperboard },
+  { id: "bts", label: "Behind the scenes", Icon: Camera },
   { id: "services", label: "Services", Icon: Layers },
   { id: "tools", label: "Tools", Icon: Wrench },
   { id: "faq", label: "Questions", Icon: CircleHelp },
