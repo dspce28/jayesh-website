@@ -4,20 +4,20 @@
 export const contact = {
   whatsapp: "91XXXXXXXXXX", // TODO: country code + number, no + or spaces. Example: 919876543210
   email: "hello@yourdomain.com", // TODO
-  instagram: "jayesh_adhikari", // TODO: confirm handle
-  youtube: "https://www.youtube.com/channel/UCNngy-8ek_PfBge8h4K65qQ",
+  instagram: "", // TODO: Instagram handle without @ ("" hides the link; none found publicly)
+  youtube: "https://www.youtube.com/@jayeshadhikarifilms",
 };
 
 // Portrait for the profile card. Drop the file into /public and set the path ("" = monogram placeholder).
 export const portrait = ""; // TODO: e.g. "/jayesh.jpg" (portrait orientation, ~900x1200)
 
 // Words the profile card types after "Hey, I'm".
-export const typingWords = ["Jayesh", "a film editor", "a filmmaker", "a storyteller"];
+export const typingWords = ["Jayesh", "a film editor", "a filmmaker", "a theatre actor"];
 
 export const site = {
   name: "Jayesh Adhikari",
-  tagline: "Filmmaker and film editor, Ahmedabad",
-  intro: "I edit short films, ad films and brand videos for filmmakers who want their footage to feel like the film they imagined. Based in Ahmedabad.",
+  tagline: "Filmmaker, theatre actor and film editor, Ahmedabad",
+  intro: "Award-winning filmmaker and film editor. I cut short films, ad films and brand videos for filmmakers who want their footage to feel like the film they imagined.",
   title: "Jayesh Adhikari | Filmmaker and film editor in Ahmedabad",
   description:
     "Jayesh Adhikari edits short films, ad films and brand videos for filmmakers. Send your footage and get a cut you can be proud of.",
@@ -124,44 +124,119 @@ export const timeline: { duration: number; fps: number; tracks: TimelineTrack[] 
 };
 
 
-export const stats = [
-  { value: "2011", label: "On stage and screen since" },
+// count: animates up to this number. Source: the Jayesh Adhikari Films YouTube channel bio.
+export const stats: { count?: number; value?: string; suffix?: string; label: string }[] = [
+  { count: 15, suffix: "+", label: "Short films at national and international festivals" },
   { value: "BPA + MPA", label: "Performing arts degrees" },
+];
+
+// From his channel bio: people he has worked with.
+export const workedWith = [
+  "Sanjay Mishra",
+  "Vijay Raaz",
+  "Sonu Sood",
+  "Dia Mirza",
+  "Sunil Shetty",
+  "Bhagyashree",
+  "Mandira Bedi",
+  "Manoj Joshi",
+  "Gaur Gopal Das",
+  "Aman Gupta",
+  "Ranveer Allahbadia",
+  "Neil Bhatt",
+  "Aditya Lakhia",
+  "Navin Kasturia",
+  "Sangram Singh",
+  "Dev Gadhvi",
+  "Sneh Desai",
+  "Shivangi Desai",
+  "Aditi Thakor",
 ];
 
 export const formats = ["Short films", "Ad films", "Brand videos", "Music videos", "Reels and social cuts", "Colour and sound"];
 
-// About — sourced from Jayesh's public blog (jayeshadhikari.blogspot.com).
-// TODO: confirm with Jayesh and add recent credits.
+// About — from the Jayesh Adhikari Films channel bio and his blog (jayeshadhikari.blogspot.com).
 export const about = {
-  heading: "An editor trained on stage, cutting for performance",
+  heading: "An award-winning filmmaker who cuts for performance",
   body: [
-    "I studied performing arts in Ahmedabad, with a bachelor's and a master's degree, and spent years acting in and directing theatre before I sat down at an edit timeline.",
-    "That is still how I cut. I watch for the performance first: the pause before a line, the look that lands, the moment a scene turns. Then I build the rhythm, sound and music around it.",
+    "I'm a filmmaker, theatre actor and film editor from Ahmedabad. My short films have been recognised at more than 15 national and international festivals: Haji won at an international film festival in Singapore, and Rukh was selected at the International Children Film Festival.",
+    "I trained in performing arts, with a bachelor's and a master's degree, and spent years acting in and directing theatre before I sat at an edit timeline. That is still how I cut: performance first, the pause before a line, the look that lands. Then rhythm, sound and music around it.",
   ],
   credits: [
+    { title: "Haji", note: "Short film, winner at an international film festival, Singapore", year: "" },
+    { title: "Rukh", note: "Selected, International Children Film Festival", year: "" },
+    { title: "Restart", note: "Official Selection, Divya Bhaskar Short Film Competition", year: "" },
     { title: "Rangmanch", note: "Gujarati play, director", year: "2015" },
     { title: "Saari Raat", note: "by Badal Sircar, director", year: "" },
-    { title: "Shanivaar Ko Do Baje", note: "by Surendra Varma, director", year: "" },
     { title: "Why I?", note: "Short film", year: "2012" },
-    { title: "Char Din", note: "by Vijay Tendulkar, stage", year: "2011" },
   ],
 };
 
 // TODO: confirm periods with Jayesh.
 export const journey = [
-  { period: "Now", title: "Filmmaker and film editor", body: "Editing short films, ad films and brand videos for independent filmmakers and brands." },
+  { period: "Now", title: "Jayesh Adhikari Films", body: "Writing, directing and editing short films, plus ad films, brand videos and testimonials for clients. 15+ short films recognised at festivals." },
   { period: "2014 – 2015", title: "Theatre director", body: "Directed Rangmanch and worked with Rep Market Production on stage work in Ahmedabad." },
   { period: "TODO", title: "Master of Performing Arts", body: "Advanced study in acting, direction and stagecraft." },
   { period: "2011", title: "Bachelor of Performing Arts", body: "Acting and theatre training; staged Insani Kathputlio Ka Tamasha and Char Din." },
 ];
 
-// TODO: replace with real projects. href: watch link ("" = not clickable). thumb: image in /public ("" = gradient frame).
+// Real work, from YouTube. youtube = video id (used for the thumbnail and the in-page player).
+// Years are approximate (from upload age). TODO: confirm years and Jayesh's role on each.
 export const projects = [
-  { title: "Short film title", description: "A story-first cut built around the lead performance.", year: "2025", role: "Editor, sound and colour", tags: ["Short film", "Edit", "Colour"], length: "12 min", href: "", thumb: "" },
-  { title: "Ad film title", description: "A 45 second spot with cutdowns for every platform.", year: "2025", role: "Editor", tags: ["Ad film", "Cutdowns"], length: "45 sec", href: "", thumb: "" },
-  { title: "Music video title", description: "Rhythm-led edit and grade for an independent artist.", year: "2024", role: "Editor and colourist", tags: ["Music video", "Colour"], length: "4 min", href: "", thumb: "" },
-  { title: "Brand video title", description: "Brand story with motion titles and a clean sound mix.", year: "2024", role: "Editor and motion titles", tags: ["Brand video", "Motion"], length: "2 min", href: "", thumb: "" },
+  {
+    title: "Haji",
+    description: "A boy goes out of his way to help his neighbour experience the holy prayer of Hajj. Winner at an international film festival in Singapore.",
+    year: "2025",
+    role: "Director",
+    tags: ["Short film", "Award winner", "Drama"],
+    length: "8:29",
+    youtube: "dUw5-fYwmoE",
+  },
+  {
+    title: "Rukh",
+    description: "A short film selected at the International Children Film Festival.",
+    year: "2025",
+    role: "Filmmaker",
+    tags: ["Short film", "Festival selection"],
+    length: "4:25",
+    youtube: "oToYdnvwIDQ",
+  },
+  {
+    title: "Restart",
+    description: "Official Selection at the Divya Bhaskar Short Film Competition.",
+    year: "2025",
+    role: "Filmmaker",
+    tags: ["Short film", "Official selection"],
+    length: "1:39",
+    youtube: "LF9xr7fJl30",
+  },
+  {
+    title: "Sakshi Chandraakar",
+    description: "Client testimonial film for India's #1 career branding coach.",
+    year: "2025",
+    role: "Jayesh Adhikari Films",
+    tags: ["Testimonial", "Brand video"],
+    length: "1:46",
+    youtube: "CMxincJYyqg",
+  },
+  {
+    title: "60 Years of Shree Santram Hospital",
+    description: "A documentary on the six-decade journey of Shree Santram Hospital, made with Nru Films and Entertainment.",
+    year: "2018",
+    role: "With Nru Films and Entertainment",
+    tags: ["Documentary", "Long form"],
+    length: "23:45",
+    youtube: "offnAqGCUt4",
+  },
+  {
+    title: "Jayesh Adhikari Films ident",
+    description: "Animated logo introduction for his production banner.",
+    year: "2025",
+    role: "Jayesh Adhikari Films",
+    tags: ["Motion", "Logo sting"],
+    length: "0:08",
+    youtube: "qLHBmT04MUQ",
+  },
 ];
 
 // TODO: confirm which tools Jayesh uses and how much. level is 0-100.

@@ -12,7 +12,7 @@ export default function ServicesAccordion() {
         const isOpen = open === i;
         const id = `svc-${i}`;
         return (
-          <div key={s.title} className={`acc-item${isOpen ? " is-open" : ""}`}>
+          <div key={s.title} className={`acc-item${isOpen ? " is-open" : ""}`} data-reveal="row" style={{ "--i": i } as React.CSSProperties}>
             <h3>
               <button type="button" aria-expanded={isOpen} aria-controls={id} onClick={() => setOpen(isOpen ? -1 : i)}>
                 <span>{s.title}</span>

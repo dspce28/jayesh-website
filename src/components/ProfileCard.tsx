@@ -27,8 +27,17 @@ export default function ProfileCard() {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={portrait} alt="" />
         ) : (
-          <div className="monogram">
-            <span>JA</span>
+          // No portrait yet: a slow black-and-white reel of stills from his films.
+          <div className="reel">
+            {projects
+              .filter((p) => p.youtube)
+              .slice(0, 5)
+              .map((p, i) => (
+                <span
+                  key={p.youtube}
+                  style={{ backgroundImage: `url('https://i.ytimg.com/vi/${p.youtube}/maxresdefault.jpg')`, "--i": i } as React.CSSProperties}
+                />
+              ))}
           </div>
         )}
       </div>
@@ -38,11 +47,13 @@ export default function ProfileCard() {
           JA
         </a>
         <ul className="socials">
-          <li>
-            <a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener" aria-label="Instagram">
-              <InstagramIcon />
-            </a>
-          </li>
+          {contact.instagram && (
+            <li>
+              <a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener" aria-label="Instagram">
+                <InstagramIcon />
+              </a>
+            </li>
+          )}
           <li>
             <a href={contact.youtube} target="_blank" rel="noopener" aria-label="YouTube">
               <YoutubeIcon />
@@ -75,7 +86,7 @@ export default function ProfileCard() {
           <a className="icon-btn accent" href="#contact" aria-label="Contact" tabIndex={project ? -1 : 0}>
             <ArrowUpRight size={18} />
           </a>
-          <a className="pill accent" href="#contact" tabIndex={project ? -1 : 0}>
+          <a className="pill accent" href="#contact" tabIndex={project ? -1 : 0} data-magnetic>
             Send your footage
           </a>
           <a className="link" href="#work" tabIndex={project ? -1 : 0}>
@@ -85,7 +96,7 @@ export default function ProfileCard() {
       </div>
 
       {/* Project face: shown while scrolling the work section */}
-      <div className="profile-body face-project" aria-hidden={!project} aria-live="polite">
+      <div className="profile-body face-project" aria-hidden={!project} aria-live="polite" key={active ?? "none"}>
         {project && (
           <>
             <h2>{project.title}</h2>
