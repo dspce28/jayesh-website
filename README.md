@@ -7,9 +7,10 @@ Next.js (App Router) + Three.js (`@react-three/fiber`). Deployed on Vercel.
 
 Everything editable is in **`src/content/site.ts`**:
 
-- `contact` — WhatsApp number, email, Instagram, YouTube (**WhatsApp must be set before the brief form works**)
-- `portrait` — path to Jayesh's photo in `public/` (empty = monogram placeholder in the profile card)
-- `projects` — work highlights. `href` = watch link, `thumb` = image in `public/`. The sticky profile card shows each project's details as it scrolls past
+- `contact` — WhatsApp number, email, Instagram (empty = hidden), YouTube (**WhatsApp must be set before the brief form works**)
+- `portrait` — path to Jayesh's photo in `public/` (empty = black-and-white reel of his film stills in the profile card)
+- `projects` — work highlights from YouTube (`youtube` = video id → thumbnail + in-page player). The sticky profile card shows each project's details as it scrolls past
+- `stats`, `workedWith` — from the Jayesh Adhikari Films channel bio
 - `about`, `journey` — bio, credits and training (taken from Jayesh's public blog; confirm before launch)
 - `tools` — editing suite and proficiency bars (placeholders; confirm)
 - `typingWords`, `stats`, `formats`, `services`, `whatToSend`, `steps`, `faq`, `projectTypes`, `timeline`, `quote`
@@ -25,7 +26,8 @@ on the right, section rail with scrollspy on the far right.
 - `src/components/RailNav.tsx` — right-hand section rail with scrollspy
 - `src/components/WorkHighlights.tsx`, `ServicesAccordion.tsx`, `BriefForm.tsx` (opens a pre-filled WhatsApp message), `Clock.tsx` (Ahmedabad time)
 - `src/components/three/Caustics.tsx` — full-page WebGL water-caustics background (follows the pointer; static under `prefers-reduced-motion`)
-- `src/app/globals.css` — design tokens (`--accent` retheme in one line) and styles
+- `src/components/fx/` — motion layer: `Intro` (film-leader countdown, once per session), `Effects` (attribute-driven reveals, magnetic buttons, tilt/glare, hover scrubbing, count-up, text scramble), `Cursor`, `ScrollTimecode`
+- `src/app/globals.css` — design tokens (`--accent` retheme in one line) and styles; everything honours `prefers-reduced-motion`
 
 ## Develop
 

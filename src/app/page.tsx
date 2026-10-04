@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Briefcase, CircleHelp, Clapperboard, Film, Layers, Mail, Send, Sparkles, UserRound, Wrench } from "lucide-react";
 import BriefForm from "@/components/BriefForm";
 import Clock from "@/components/Clock";
@@ -7,15 +8,42 @@ import RailNav from "@/components/RailNav";
 import ServicesAccordion from "@/components/ServicesAccordion";
 import Timeline from "@/components/Timeline";
 import WorkHighlights from "@/components/WorkHighlights";
+import Cursor from "@/components/fx/Cursor";
+import Effects from "@/components/fx/Effects";
+import Intro from "@/components/fx/Intro";
+import ScrollTimecode from "@/components/fx/ScrollTimecode";
 import SceneLoader from "@/components/three/SceneLoader";
-import { about, contact, faq, formats, journey, quote, site, stats, steps, tools, whatToSend } from "@/content/site";
+import { about, contact, faq, formats, journey, quote, site, stats, steps, tools, whatToSend, workedWith } from "@/content/site";
 
-function Tag({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+function Tag({ icon, children }: { icon: React.ReactNode; children: string }) {
   return (
-    <p className="tag-pill">
+    <p className="tag-pill" data-reveal>
       {icon}
-      {children}
+      <span data-scramble>{children}</span>
     </p>
+  );
+}
+
+// Hero headline, split into words so they can rise in one after another.
+const HEADLINE: { w: string; hl?: "solid" | "soft" }[] = [
+  { w: "I" },
+  { w: "cut" },
+  { w: "short films", hl: "solid" },
+  { w: "& ad films", hl: "soft" },
+  { w: "that" },
+  { w: "people" },
+  { w: "remember" },
+];
+
+function Letters({ text, className }: { text: string; className?: string }) {
+  return (
+    <span className={className}>
+      {text.split("").map((ch, i) => (
+        <span key={i} className="letter" style={{ "--i": i } as React.CSSProperties}>
+          {ch}
+        </span>
+      ))}
+    </span>
   );
 }
 
@@ -25,7 +53,11 @@ export default function Home() {
       <a className="skip" href="#contact">
         Skip to contact
       </a>
+      <Intro />
       <SceneLoader />
+      <ScrollTimecode />
+      <Cursor />
+      <Effects />
 
       <div className="shell">
         <ProfileCard />
@@ -46,15 +78,29 @@ export default function Home() {
 
           {/* Hero */}
           <section id="top" className="hero">
-            <h1>
-              I cut <mark className="hl-solid">short films</mark> <mark className="hl-soft">&amp; ad films</mark> that people
-              remember
+            <h1 className="headline" data-reveal="words">
+              {HEADLINE.map(({ w, hl }, i) => (
+                <Fragment key={w}>
+                  <span className="word" style={{ "--i": i } as React.CSSProperties}>
+                    <span className="word-in">{hl ? <mark className={`hl-${hl}`}>{w}</mark> : w}</span>
+                  </span>{" "}
+                </Fragment>
+              ))}
             </h1>
-            <Timeline />
-            <ul className="stats">
-              {stats.map((s) => (
-                <li key={s.label}>
-                  <strong>{s.value}</strong>
+            <div data-reveal style={{ "--i": 6 } as React.CSSProperties}>
+              <Timeline />
+            </div>
+            <ul className="stats" data-reveal>
+              {stats.map((s, i) => (
+                <li key={s.label} style={{ "--i": i } as React.CSSProperties}>
+                  {s.count ? (
+                    <strong data-count={s.count} data-from={0} data-suffix={s.suffix ?? ""}>
+                      {s.count}
+                      {s.suffix}
+                    </strong>
+                  ) : (
+                    <strong>{s.value}</strong>
+                  )}
                   <span>{s.label}</span>
                 </li>
               ))}
@@ -75,21 +121,33 @@ export default function Home() {
                 ))}
               </ul>
             </div>
+            <p className="formats-label worked">
+              <Sparkles size={16} aria-hidden /> Worked with
+            </p>
+            <div className="marquee reverse">
+              <ul>
+                {[...workedWith, ...workedWith].map((n, i) => (
+                  <li key={i} aria-hidden={i >= workedWith.length}>
+                    {n}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </section>
 
           {/* About */}
           <section id="about">
             <Tag icon={<UserRound size={14} aria-hidden />}>About</Tag>
-            <h2 className="title">{about.heading}</h2>
-            <div className="prose">
+            <h2 className="title" data-reveal>{about.heading}</h2>
+            <div className="prose" data-reveal>
               {about.body.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <h3 className="subhead">Stage and screen</h3>
+            <h3 className="subhead" data-reveal>Festivals, stage and screen</h3>
             <ul className="rows">
-              {about.credits.map((c) => (
-                <li key={c.title}>
+              {about.credits.map((c, i) => (
+                <li key={c.title} data-reveal="row" style={{ "--i": i } as React.CSSProperties}>
                   <span>
                     <strong>{c.title}</strong>
                     <span>{c.note}</span>
@@ -103,9 +161,9 @@ export default function Home() {
           {/* Journey */}
           <section id="journey">
             <Tag icon={<Briefcase size={14} aria-hidden />}>Training &amp; journey</Tag>
-            <ol className="journey">
-              {journey.map((j) => (
-                <li key={j.title}>
+            <ol className="journey" data-reveal="line">
+              {journey.map((j, i) => (
+                <li key={j.title} data-reveal="row" style={{ "--i": i } as React.CSSProperties}>
                   <span className="journey-when">{j.period}</span>
                   <span className="journey-dot" aria-hidden />
                   <div>
@@ -120,6 +178,9 @@ export default function Home() {
           {/* Work */}
           <section id="work">
             <Tag icon={<Sparkles size={14} aria-hidden />}>Work highlights</Tag>
+            <h2 className="title" data-reveal>
+              Films that travelled to festivals, and brand work that ships
+            </h2>
             <WorkHighlights />
           </section>
 
@@ -131,7 +192,8 @@ export default function Home() {
 
           {/* First film */}
           <section className="first">
-            <div className="first-card">
+            <div className="first-card" data-reveal="zoom" data-tilt="3">
+              <span className="work-glare" aria-hidden />
               <Clapperboard size={28} className="first-icon" aria-hidden />
               <h2 className="title">First film? Send it as it is.</h2>
               <p className="first-lede">
@@ -152,10 +214,10 @@ export default function Home() {
           {/* Tools */}
           <section id="tools">
             <Tag icon={<Wrench size={14} aria-hidden />}>Tools</Tag>
-            <h2 className="title">The suite I cut, grade and mix in</h2>
+            <h2 className="title" data-reveal>The suite I cut, grade and mix in</h2>
             <InView as="ul" className="tools">
-              {tools.map((t) => (
-                <li key={t.name}>
+              {tools.map((t, i) => (
+                <li key={t.name} style={{ "--i": i } as React.CSSProperties}>
                   <span className="tool-mark" style={{ color: t.color, background: t.bg }} aria-hidden>
                     {t.mark}
                   </span>
@@ -175,12 +237,13 @@ export default function Home() {
 
           {/* Process */}
           <section className="process" aria-labelledby="process-title">
-            <h2 className="title" id="process-title">
+            <h2 className="title" id="process-title" data-reveal>
               How it works
             </h2>
             <ol className="steps">
               {steps.map((s, i) => (
-                <li key={s.title}>
+                <li key={s.title} data-reveal="zoom" data-tilt="6" style={{ "--i": i } as React.CSSProperties}>
+                  <span className="work-glare" aria-hidden />
                   <span className="step-no">{String(i + 1).padStart(2, "0")}</span>
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
@@ -192,8 +255,8 @@ export default function Home() {
           {/* FAQ */}
           <section id="faq">
             <Tag icon={<CircleHelp size={14} aria-hidden />}>Questions</Tag>
-            <h2 className="title">Questions filmmakers ask</h2>
-            <div className="faq">
+            <h2 className="title" data-reveal>Questions filmmakers ask</h2>
+            <div className="faq" data-reveal>
               {faq.map((f) => (
                 <details key={f.q}>
                   <summary>{f.q}</summary>
@@ -206,29 +269,39 @@ export default function Home() {
           {/* Contact */}
           <section id="contact">
             <Tag icon={<Send size={14} aria-hidden />}>Contact</Tag>
-            <h2 className="title big">
+            <h2 className="title big" data-reveal>
               Have footage waiting? Send me a short brief and it opens in WhatsApp, ready to go.
             </h2>
-            <BriefForm />
-            <a className="contact-mail" href={`mailto:${contact.email}`}>
+            <div data-reveal>
+              <BriefForm />
+            </div>
+            <a className="contact-mail" href={`mailto:${contact.email}`} data-magnetic="0.2">
               <Mail size={18} aria-hidden /> {contact.email}
             </a>
           </section>
 
           <section className="quote" aria-label="Motto">
-            <blockquote>
-              <p>“{quote.text}”</p>
+            <blockquote data-reveal="words">
+              <p>
+                {`“${quote.text}”`.split(" ").map((w, i) => (
+                  <Fragment key={i}>
+                    <span className="word" style={{ "--i": i } as React.CSSProperties}>
+                      <span className="word-in">{w}</span>
+                    </span>{" "}
+                  </Fragment>
+                ))}
+              </p>
               <footer>{quote.by}</footer>
             </blockquote>
           </section>
 
           <footer className="site-foot">
-            <div className="foot-name" aria-hidden>
-              <span>Jayesh</span>
-              <span className="outline">Adhikari</span>
+            <div className="foot-name" aria-hidden data-reveal="letters">
+              <Letters text="Jayesh" />
+              <Letters text="Adhikari" className="outline" />
             </div>
             <p>
-              Filmmaker and film editor, Ahmedabad
+              Filmmaker, theatre actor and film editor, Ahmedabad
               <br />© {new Date().getFullYear()} Jayesh Adhikari
             </p>
           </footer>

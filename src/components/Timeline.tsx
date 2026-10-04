@@ -1,10 +1,12 @@
 "use client";
 
+import { Pause, Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { timeline } from "@/content/site";
 
 const { duration: DURATION, fps: FPS, tracks: TRACKS } = timeline;
 const REST = 0.4;
+const SPEED = 4; // playback runs the 2:00 sequence in 30 seconds
 
 // Deterministic pseudo-noise so the waveforms are stable across renders.
 const noise = (i: number, s: number) => Math.abs(Math.sin(i * 12.9898 + s * 78.233) * 43758.5453) % 1;
@@ -47,6 +49,7 @@ function Wave({ kind, ci, ti }: { kind: "speech" | "music"; ci: number; ti: numb
 export default function Timeline() {
   const [p, setPState] = useState(0);
   const [cut, setCut] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const laneRef = useRef<HTMLDivElement>(null);
   const raf = useRef<number | null>(null);
@@ -56,6 +59,24 @@ export default function Timeline() {
   const stopAuto = useCallback(() => {
     if (raf.current) cancelAnimationFrame(raf.current);
     raf.current = null;
+    setPlaying(false);
+  }, []);
+
+  // Real-time playback that loops; the "On screen" caption follows along.
+  const play = useCallback(() => {
+    if (raf.current) cancelAnimationFrame(raf.current);
+    setPlaying(true);
+    let last = performance.now();
+    const frame = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      setPState((v) => {
+        const next = v + (dt * SPEED) / DURATION;
+        return next >= 1 ? 0 : next;
+      });
+      raf.current = requestAnimationFrame(frame);
+    };
+    raf.current = requestAnimationFrame(frame);
   }, []);
 
   // One opening moment: clips snap into place, then the playhead plays in and rests.
@@ -67,7 +88,10 @@ export default function Timeline() {
       });
       return () => cancelAnimationFrame(id);
     }
-    const t1 = setTimeout(() => setCut(true), 250);
+    // Wait for the countdown intro if it is playing.
+    const root = document.documentElement;
+    const wait = root.classList.contains("intro-on") && !root.classList.contains("intro-done") ? 2200 : 0;
+    const t1 = setTimeout(() => setCut(true), 250 + wait);
     const t2 = setTimeout(() => {
       const start = performance.now();
       const frame = (now: number) => {
@@ -76,7 +100,7 @@ export default function Timeline() {
         raf.current = k < 1 ? requestAnimationFrame(frame) : null;
       };
       raf.current = requestAnimationFrame(frame);
-    }, 1100);
+    }, 1100 + wait);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -92,6 +116,12 @@ export default function Timeline() {
   const onKey = (e: React.KeyboardEvent) => {
     const step = e.shiftKey ? 0.1 : 0.02;
     const next: Record<string, number> = { ArrowRight: p + step, ArrowLeft: p - step, Home: 0, End: 1 };
+    if (e.key === " " || e.key === "k") {
+      if (playing) stopAuto();
+      else play();
+      e.preventDefault();
+      return;
+    }
     if (e.key in next) {
       stopAuto();
       setP(next[e.key]);
@@ -111,7 +141,8 @@ export default function Timeline() {
         style={{ "--p": p } as React.CSSProperties}
         role="slider"
         tabIndex={0}
-        aria-label="Sample edit timeline playhead. Drag or use arrow keys."
+        aria-label="Sample edit timeline playhead. Drag, use arrow keys, or press space to play."
+        data-cursor="Drag"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(p * 100)}
@@ -177,8 +208,19 @@ export default function Timeline() {
         </div>
       </div>
       <div className="tl-caption">
-        <span>
-          On screen: <strong>{label}</strong>
+        <span className="tl-controls">
+          <button
+            type="button"
+            className={`tl-play${playing ? " is-playing" : ""}`}
+            onClick={() => (playing ? stopAuto() : play())}
+            aria-label={playing ? "Pause timeline" : "Play timeline"}
+            data-magnetic="0.25"
+          >
+            {playing ? <Pause size={15} fill="currentColor" /> : <Play size={15} fill="currentColor" />}
+          </button>
+          <span>
+            On screen: <strong>{label}</strong>
+          </span>
         </span>
         <span className="muted">Drag the playhead. This is how your project will sit on my timeline.</span>
       </div>
