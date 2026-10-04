@@ -1,30 +1,34 @@
 # jayesh-website
 
-Personal portfolio site for Jayesh Adhikari — Next.js (App Router) + Tailwind CSS + Three.js
-(via `@react-three/fiber` / `drei`) + Framer Motion. Deployed on Vercel.
+Website for Jayesh Adhikari, filmmaker and film editor in Ahmedabad.
+Next.js (App Router) + Three.js (`@react-three/fiber`). Deployed on Vercel.
 
 ## Editing content
 
-All copy lives in **`src/content/profile.ts`**. Anything marked `TODO` is a placeholder.
-To add a résumé, drop `resume.pdf` into `public/` and set `resumeUrl: "/resume.pdf"`.
+Everything editable is in **`src/content/site.ts`**:
+
+- `contact` — WhatsApp number, email, Instagram handle (**WhatsApp must be set before the brief form works**)
+- `work` — portfolio rows. Set `href` to a YouTube/Vimeo/Drive link and `thumb` to an image in `public/`
+- `about` — bio and stage/screen credits (taken from Jayesh's public blog; confirm before launch)
+- `services`, `whatToSend`, `steps`, `faq`, `projectTypes`, `timeline`
 
 ## Structure
 
-- `src/app/page.tsx` — page sections (hero, about, skills, experience, projects, contact)
-- `src/components/three/HeroScene.tsx` — the 3D hero (distorted orb, wireframe shell, starfield, pointer parallax)
-- `src/components/three/SceneLoader.tsx` — loads the scene client-side only (`ssr: false`)
-- `src/components/Reveal.tsx` — scroll-reveal animation (honours `prefers-reduced-motion`)
+- `src/app/page.tsx` — all sections
+- `src/components/Timeline.tsx` — draggable edit-timeline hero (pointer + keyboard accessible)
+- `src/components/BriefForm.tsx` — brief form that opens a pre-filled WhatsApp message
+- `src/components/three/FilmLight.tsx` — WebGL light-leak + film-grain shader behind the hero, follows the pointer; static under `prefers-reduced-motion`
+- `src/app/globals.css` — design tokens and styles
 
 ## Develop
 
 ```bash
 npm install
 npm run dev     # http://localhost:3000
-npm run build   # production build
+npm run build
 npm run lint
 ```
 
 ## Deploy
 
-Import this repo in Vercel (framework preset: Next.js, no env vars needed). Every push to the
-production branch deploys automatically; other branches get preview URLs.
+Import the repo in Vercel (preset: Next.js, no env vars). Pushes to the production branch deploy automatically.
