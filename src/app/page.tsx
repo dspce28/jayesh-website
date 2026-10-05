@@ -30,15 +30,10 @@ function Tag({ icon, children }: { icon: React.ReactNode; children: string }) {
 
 // Hero headline, split into words so they can rise in one after another.
 const HEADLINE: { w: string; hl?: "solid" | "soft" }[] = [
-  { w: "I" },
-  { w: "direct," },
-  { w: "shoot" },
-  { w: "&" },
-  { w: "cut" },
-  { w: "short films,", hl: "solid" },
-  { w: "ad films", hl: "soft" },
-  { w: "&" },
-  { w: "corporate films", hl: "soft" },
+  { w: "From" },
+  { w: "idea", hl: "soft" },
+  { w: "to" },
+  { w: "final cut.", hl: "solid" },
 ];
 
 function Letters({ text, className }: { text: string; className?: string }) {
