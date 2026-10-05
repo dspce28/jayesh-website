@@ -15,7 +15,7 @@ export const contact = {
 export const portrait = "/jayesh.jpg"; // "" falls back to the on-set reel below
 
 // Photos for the profile card reel when there is no portrait (from his Carrd gallery).
-export const reel = ["/gallery/camera-operating.jpg", "/gallery/on-set-camera.jpg", "/gallery/interview-setup.jpg", "/gallery/on-set-desk.jpg", "/gallery/presenter-shoot.jpg"];
+export const reel = ["/gallery/camera-operating.jpg", "/gallery/on-set-camera.jpg", "/gallery/interview-setup.jpg", "/gallery/location-crew.jpg", "/gallery/cinema-camera.jpg"];
 
 // Words the profile card types after "Hey, I'm".
 export const typingWords = ["Jayesh", "a creative director", "a filmmaker", "a videographer", "an editor"];
@@ -284,32 +284,36 @@ export const quote = {
   by: "Jayesh Adhikari",
 };
 
-// Behind the scenes, from his Carrd page and his own photo folder. w/h are the file's pixel size.
-export const gallery = [
-  { src: "/gallery/location-crew.jpg", w: 1080, h: 1080, caption: "On location with the crew" },
-  { src: "/gallery/on-set-camera.jpg", w: 710, h: 518, caption: "On set" },
-  { src: "/gallery/bus-stop-shoot.jpg", w: 1080, h: 1080, caption: "Shooting at a bus stop" },
-  { src: "/gallery/edit-timeline.jpg", w: 960, h: 1260, caption: "The edit: Restart on the timeline" },
-  { src: "/gallery/bhanwar-premiere.jpg", w: 1034, h: 1034, caption: "Bhanwar premiere" },
-  { src: "/gallery/cinema-camera.jpg", w: 1080, h: 1060, caption: "Cinema camera setup" },
-  { src: "/gallery/waah-zindagi-poster.jpg", w: 1080, h: 1081, caption: "Waah Zindagi (ZEE5), Assistant Director" },
-  { src: "/gallery/camera-prep.jpg", w: 1080, h: 1086, caption: "Camera prep" },
-  { src: "/gallery/hajji-poster.jpg", w: 1080, h: 820, caption: "The Hajji, prize-winning short film" },
-  { src: "/gallery/script-reading.jpg", w: 1080, h: 1076, caption: "Script on set" },
-  { src: "/gallery/camera-operating.jpg", w: 960, h: 1280, caption: "Behind the camera" },
-  { src: "/gallery/bhanwar-premiere-2.jpg", w: 972, h: 972, caption: "Bhanwar premiere with the team" },
-  { src: "/gallery/zehar-poster.jpg", w: 990, h: 1000, caption: "Zehar, short film" },
-  { src: "/gallery/on-location.jpg", w: 1080, h: 1080, caption: "On location" },
-  { src: "/gallery/savdhan-india.jpg", w: 416, h: 415, caption: "Savdhan India, TV episode" },
-  { src: "/gallery/boss-have-to-dhamaal-premiere.jpg", w: 704, h: 703, caption: "Boss Have To Dhamaal premiere" },
-  { src: "/gallery/studio-setup.jpg", w: 1280, h: 946, caption: "Studio lighting setup" },
-  { src: "/gallery/interview-setup.jpg", w: 720, h: 1280, caption: "Interview shoot" },
-  { src: "/gallery/pic-billionaire-retreat.jpg", w: 1080, h: 1066, caption: "Billionaire Mastermind Retreat, PIC × Sneh Desai" },
-  { src: "/gallery/with-sonu-sood.jpg", w: 1280, h: 1280, caption: "On set with Sonu Sood" },
-  { src: "/gallery/bhanwar-poster.jpg", w: 1066, h: 1600, caption: "Bhanwar (2017), Gujarati feature" },
-  { src: "/gallery/crew-selfie.jpg", w: 1080, h: 1080, caption: "The crew" },
-  { src: "/gallery/theatre-press.jpg", w: 1000, h: 1000, caption: "Theatre, in the press" },
+// Behind the scenes, shown as a contact sheet. The first "set" photo is the large hero frame.
+// chapter: "set" | "events" | "posters". w/h are the file's pixel size.
+export const galleryChapters = [
+  { id: "all", label: "All" },
+  { id: "set", label: "On set" },
+  { id: "events", label: "Premieres & events" },
+  { id: "posters", label: "Posters" },
+] as const;
+
+export type GalleryChapter = (typeof galleryChapters)[number]["id"];
+
+export const gallery: { src: string; w: number; h: number; caption: string; chapter: Exclude<GalleryChapter, "all"> }[] = [
+  { src: "/gallery/location-crew.jpg", w: 1080, h: 1080, caption: "On location with the crew", chapter: "set" },
+  { src: "/gallery/cinema-camera.jpg", w: 1080, h: 1060, caption: "Cinema camera setup", chapter: "set" },
+  { src: "/gallery/bus-stop-shoot.jpg", w: 1080, h: 1080, caption: "Shooting at a bus stop", chapter: "set" },
+  { src: "/gallery/on-set-camera.jpg", w: 710, h: 518, caption: "On set", chapter: "set" },
+  { src: "/gallery/edit-timeline.jpg", w: 960, h: 1260, caption: "The edit: Restart on the timeline", chapter: "set" },
+  { src: "/gallery/script-reading.jpg", w: 1080, h: 1076, caption: "Script on set", chapter: "set" },
+  { src: "/gallery/camera-operating.jpg", w: 960, h: 1280, caption: "Behind the camera", chapter: "set" },
+  { src: "/gallery/interview-setup.jpg", w: 720, h: 1280, caption: "Interview shoot", chapter: "set" },
+  { src: "/gallery/on-location.jpg", w: 1080, h: 1080, caption: "On location", chapter: "set" },
+  { src: "/gallery/bhanwar-premiere.jpg", w: 1034, h: 1034, caption: "Bhanwar premiere", chapter: "events" },
+  { src: "/gallery/boss-have-to-dhamaal-premiere.jpg", w: 704, h: 703, caption: "Boss Have To Dhamaal premiere", chapter: "events" },
+  { src: "/gallery/with-sonu-sood.jpg", w: 1280, h: 1280, caption: "On set with Sonu Sood", chapter: "events" },
+  { src: "/gallery/waah-zindagi-poster.jpg", w: 1080, h: 1081, caption: "Waah Zindagi (ZEE5), Assistant Director", chapter: "posters" },
+  { src: "/gallery/hajji-poster.jpg", w: 1080, h: 820, caption: "The Hajji, prize-winning short film", chapter: "posters" },
+  { src: "/gallery/bhanwar-poster.jpg", w: 1066, h: 1600, caption: "Bhanwar (2017), Gujarati feature", chapter: "posters" },
+  { src: "/gallery/zehar-poster.jpg", w: 990, h: 1000, caption: "Zehar, short film", chapter: "posters" },
 ];
+
 
 // Awards, selections and press, each backed by a photo or document he supplied.
 // stats "5" above counts the Award, Official selection and Honour rows here; keep them in sync.

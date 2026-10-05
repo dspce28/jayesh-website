@@ -1,93 +1,89 @@
 "use client";
 
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { gallery } from "@/content/site";
+import { useRef, useState } from "react";
+import { gallery, galleryChapters, type GalleryChapter } from "@/content/site";
 
-// Behind-the-scenes photos as a draggable film strip; tap one for a lightbox.
+// Edge-print frame numbers, like a contact sheet: 12, 12A, 13, 13A…
+const frameNo = (i: number) => `${12 + Math.floor(i / 2)}${i % 2 ? "A" : ""}`;
+
+// Behind-the-scenes photos laid out as a photographer's contact sheet.
+// Hover draws a grease-pencil circle; click opens a viewer with thumbnails and swipe.
 export default function Gallery() {
-  const strip = useRef<HTMLDivElement>(null);
-  const dialog = useRef<HTMLDialogElement>(null);
+  const [chapter, setChapter] = useState<GalleryChapter>("all");
   const [index, setIndex] = useState<number | null>(null);
-  const drag = useRef({ down: false, x: 0, left: 0, moved: false });
+  const dialog = useRef<HTMLDialogElement>(null);
+  const swipe = useRef<number | null>(null);
 
-  // Mouse drag-to-scroll (touch already scrolls natively).
-  useEffect(() => {
-    const el = strip.current;
-    if (!el) return;
-    const down = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      drag.current = { down: true, x: e.clientX, left: el.scrollLeft, moved: false };
-    };
-    const move = (e: PointerEvent) => {
-      const d = drag.current;
-      if (!d.down) return;
-      const dx = e.clientX - d.x;
-      if (!d.moved && Math.abs(dx) > 4) {
-        // Only now is it a drag: stop snapping and stop the photo under the pointer from taking the click.
-        d.moved = true;
-        el.classList.add("is-dragging");
-      }
-      if (d.moved) el.scrollLeft = d.left - dx;
-    };
-    const up = () => {
-      drag.current.down = false;
-      el.classList.remove("is-dragging");
-    };
-    el.addEventListener("pointerdown", down);
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-    return () => {
-      el.removeEventListener("pointerdown", down);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-  }, []);
+  const items = gallery
+    .map((g, i) => ({ ...g, n: i }))
+    .filter((g) => chapter === "all" || g.chapter === chapter);
+  const heroSrc = gallery.find((g) => g.chapter === "set")?.src;
+  const current = index === null ? null : items[index];
 
   const open = (i: number) => {
-    if (drag.current.moved) return; // a drag, not a click
     setIndex(i);
     dialog.current?.showModal();
   };
-  const step = (d: number) => setIndex((i) => (i === null ? i : (i + d + gallery.length) % gallery.length));
-  const current = index === null ? null : gallery[index];
+  const step = (d: number) => setIndex((i) => (i === null ? i : (i + d + items.length) % items.length));
 
   return (
     <>
-      <div className="strip-wrap">
-        <div ref={strip} className="strip" tabIndex={0} aria-label="Behind the scenes photos, scroll sideways" data-cursor="Drag">
-          {gallery.map((g, i) => (
+      <div className="sheet-tabs" role="tablist" aria-label="Photo chapters">
+        {galleryChapters.map((c) => {
+          const count = c.id === "all" ? gallery.length : gallery.filter((g) => g.chapter === c.id).length;
+          return (
             <button
-              key={g.src}
+              key={c.id}
               type="button"
-              className="frame"
-              style={{ aspectRatio: `${g.w} / ${g.h}` } as React.CSSProperties}
-              onClick={() => open(i)}
-              aria-label={`Open photo: ${g.caption}`}
-              data-cursor="View"
+              role="tab"
+              aria-selected={chapter === c.id}
+              className={chapter === c.id ? "is-active" : undefined}
+              onClick={() => setChapter(c.id)}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={g.src} alt={g.caption} width={g.w} height={g.h} loading="lazy" draggable={false} />
-              <span className="frame-cap">
-                <span>{String(i + 1).padStart(2, "0")}</span>
-                {g.caption}
-              </span>
+              {c.label}
+              <span>{count}</span>
             </button>
+          );
+        })}
+      </div>
+
+      <div className="sheet">
+        <p className="sheet-edge" aria-hidden>
+          JAYESH ADHIKARI FILMS · ROLL 01 · {items.length} FRAMES
+        </p>
+        {/* key remounts the grid so the frames cut in again on every chapter change */}
+        <ul key={chapter} className="sheet-grid">
+          {items.map((g, i) => (
+            <li
+              key={g.src}
+              className={g.src === heroSrc && chapter !== "events" && chapter !== "posters" ? "is-hero" : undefined}
+              style={{ "--i": i } as React.CSSProperties}
+            >
+              <button type="button" className="shot" onClick={() => open(i)} aria-label={`Open photo: ${g.caption}`}>
+                <span className="shot-img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={g.src} alt={g.caption} width={g.w} height={g.h} loading="lazy" draggable={false} />
+                  <svg className="pick" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+                    <path d="M50 6 C78 5 95 22 94 48 C93 76 74 95 48 94 C21 93 5 74 6 49 C7 25 24 9 53 8 C62 8 70 10 76 14" />
+                  </svg>
+                </span>
+                <span className="shot-cap">
+                  <span>{frameNo(g.n)}</span>
+                  {g.caption}
+                </span>
+              </button>
+            </li>
           ))}
-        </div>
-        <div className="strip-controls">
-          <button type="button" className="icon-btn" aria-label="Scroll back" onClick={() => strip.current?.scrollBy({ left: -strip.current.clientWidth * 0.8, behavior: "smooth" })}>
-            <ChevronLeft size={18} />
-          </button>
-          <button type="button" className="icon-btn" aria-label="Scroll forward" onClick={() => strip.current?.scrollBy({ left: strip.current.clientWidth * 0.8, behavior: "smooth" })}>
-            <ChevronRight size={18} />
-          </button>
-        </div>
+        </ul>
+        <p className="sheet-edge bottom" aria-hidden>
+          ▸ {frameNo(items[0]?.n ?? 0)} — {frameNo(items[items.length - 1]?.n ?? 0)}
+        </p>
       </div>
 
       <dialog
         ref={dialog}
-        className="player lightbox"
+        className="player lightbox viewer"
         aria-label={current ? current.caption : "Photo"}
         onClose={() => setIndex(null)}
         onClick={(e) => e.target === e.currentTarget && dialog.current?.close()}
@@ -102,7 +98,7 @@ export default function Gallery() {
               <div>
                 <strong>{current.caption}</strong>
                 <span>
-                  {(index ?? 0) + 1} / {gallery.length}
+                  Frame {frameNo(current.n)} · {(index ?? 0) + 1} / {items.length}
                 </span>
               </div>
               <div className="lightbox-nav">
@@ -117,9 +113,34 @@ export default function Gallery() {
                 </button>
               </div>
             </div>
-            <div className="lightbox-img">
+            <div
+              className="lightbox-img"
+              onPointerDown={(e) => (swipe.current = e.clientX)}
+              onPointerUp={(e) => {
+                if (swipe.current === null) return;
+                const dx = e.clientX - swipe.current;
+                swipe.current = null;
+                if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+              }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img key={current.src} src={current.src} alt={current.caption} width={current.w} height={current.h} />
+              <img key={current.src} src={current.src} alt={current.caption} width={current.w} height={current.h} draggable={false} />
+            </div>
+            <div className="thumbs" role="list" aria-label="All photos in this chapter">
+              {items.map((g, i) => (
+                <button
+                  key={g.src}
+                  type="button"
+                  role="listitem"
+                  className={i === index ? "is-active" : undefined}
+                  onClick={() => setIndex(i)}
+                  aria-label={`Show ${g.caption}`}
+                  aria-current={i === index}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={g.src} alt="" loading="lazy" />
+                </button>
+              ))}
             </div>
           </div>
         )}
