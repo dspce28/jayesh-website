@@ -3,7 +3,7 @@
 import { Pause, Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { timeline } from "@/content/site";
-import Monitor from "./Monitor";
+import Monitor, { TRANSITION_SECONDS } from "./Monitor";
 
 const { duration: DURATION, fps: FPS, tracks: TRACKS } = timeline;
 const REST = 0.4;
@@ -225,6 +225,17 @@ export default function Timeline() {
                   </div>
                 );
               })}
+              {/* Transition markers on the cuts, like an NLE's transition boxes */}
+              {track.name === "V1" &&
+                track.clips.slice(0, -1).map(([, e], ci) => (
+                  <span
+                    key={`x-${e}`}
+                    className={`xfade${cut ? " is-in" : ""}`}
+                    style={{ left: pct(e - TRANSITION_SECONDS / 2), width: pct(TRANSITION_SECONDS) }}
+                    title={timeline.transitions[ci]?.name}
+                    aria-hidden
+                  />
+                ))}
             </div>
           </div>
         ))}

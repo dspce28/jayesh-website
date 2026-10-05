@@ -122,7 +122,11 @@ export type TimelineTrack = {
   clips: [number, number, string][];
 };
 
-export const timeline: { duration: number; fps: number; tracks: TimelineTrack[] } = {
+// Transitions between consecutive V1 clips (one per cut, in order). Shown on the
+// timeline and performed in the program monitor.
+export type TransitionKind = "zoom" | "whip" | "leak" | "glitch" | "dip" | "blur";
+
+export const timeline: { duration: number; fps: number; tracks: TimelineTrack[]; transitions: { kind: TransitionKind; name: string }[] } = {
   duration: 120,
   fps: 24,
   tracks: [
@@ -131,17 +135,25 @@ export const timeline: { duration: number; fps: number; tracks: TimelineTrack[] 
       name: "V1",
       kind: "v",
       clips: [
-        [0, 16, "Opening wide"],
-        [16, 27, "Close-up"],
-        [27, 49, "Walk and talk"],
-        [49, 63, "Product hero"],
-        [63, 76, "Reaction"],
-        [76, 98, "Rooftop, golden hour"],
-        [98, 120, "Final frame"],
+        [0, 16, "On location"],
+        [16, 27, "Haji · close-up"],
+        [27, 49, "Rukh"],
+        [49, 63, "Camera rig"],
+        [63, 76, "Restart"],
+        [76, 98, "Santram doc"],
+        [98, 120, "Testimonial"],
       ],
     },
     { name: "A1", kind: "a", wave: "speech", clips: [[0, 62, "Dialogue"], [62, 120, "Dialogue"]] },
     { name: "A2", kind: "a", wave: "music", clips: [[6, 120, "Music"]] },
+  ],
+  transitions: [
+    { kind: "zoom", name: "Zoom dissolve" },
+    { kind: "whip", name: "Whip pan" },
+    { kind: "leak", name: "Light leak" },
+    { kind: "glitch", name: "Glitch cut" },
+    { kind: "dip", name: "Dip to black" },
+    { kind: "blur", name: "Blur dissolve" },
   ],
 };
 

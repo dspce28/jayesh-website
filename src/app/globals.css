@@ -1290,3 +1290,34 @@ dialog .icon-btn { cursor: pointer; }
   .mon-title strong { font-size: 1.25rem; }
   .mon-end strong { font-size: 1rem; }
 }
+
+/* ---- Transitions: timeline markers + monitor effects ---- */
+.xfade {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  z-index: 2;
+  border-radius: 3px;
+  background-color: rgb(255 255 255 / 0.85);
+  background-image: linear-gradient(to top right, transparent calc(50% - 0.75px), rgb(30 30 36 / 0.7) 50%, transparent calc(50% + 0.75px));
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35);
+  opacity: 0;
+  transition: opacity 0.4s 1.2s;
+}
+.xfade.is-in { opacity: 0.9; }
+.mon-slice { position: absolute; inset: 0; }
+.mon-rgb { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: linear-gradient(90deg, rgb(255 0 60 / 0.35), transparent 30%, transparent 70%, rgb(0 200 255 / 0.35)); }
+.mon-leak {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(40% 55% at 30% 45%, rgb(255 170 80 / 0.95), transparent 70%),
+    radial-gradient(35% 50% at 70% 60%, rgb(255 80 40 / 0.8), transparent 70%),
+    radial-gradient(30% 40% at 55% 30%, rgb(255 230 180 / 0.9), transparent 70%);
+}
+.mon-streak { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgb(255 255 255 / 0.12) 0 2px, transparent 2px 9px); mix-blend-mode: overlay; }
+.mon-clip.is-fx { color: var(--accent); }
+.lane .clip.v:not(:first-child) { padding-left: 18px; }
+@media (max-width: 600px) { .lane .clip.v:not(:first-child) { padding-left: 12px; } }
