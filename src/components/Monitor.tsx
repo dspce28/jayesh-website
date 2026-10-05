@@ -23,13 +23,14 @@ type Shot = {
 
 // Keyed by the V1 clip labels in site.ts; each is real footage from his work.
 const SHOTS: Record<string, Shot> = {
-  "On location": { src: "/gallery/location-crew.jpg", from: [1.28, 0, 2, 0], to: [1.04, 0, 0, 0], pos: "center 35%", grade: "grayscale(0.2) contrast(1.05)" },
-  "Haji · close-up": { src: "/monitor/haji.jpg", from: [1.02, 0, 0, 0], to: [1.22, -3, 2, 0], pos: "35% 40%" },
-  Rukh: { src: "/monitor/rukh.jpg", from: [1.2, 7, 0, 0], to: [1.2, -7, 0, 0] },
-  "Camera rig": { src: "/gallery/cinema-camera.jpg", from: [1.1, 0, 2, -2], to: [1.25, -2, -1, 1.5], pos: "center 40%", sweep: true, grade: "contrast(1.1) saturate(0.9)" },
-  Restart: { src: "/monitor/restart.jpg", from: [1.05, 0, 0, 0], to: [1.45, 0, 4, 0], pos: "center 30%" },
-  "Santram doc": { src: "/monitor/santram.jpg", from: [1.06, -3, 0, 0], to: [1.16, 3, -1, 0], grade: "sepia(0.45) saturate(1.5) hue-rotate(-12deg) brightness(1.08) contrast(1.05)", flare: true },
-  Testimonial: { src: "/monitor/sakshi.jpg", from: [1.12, 0, 0, 0], to: [1.02, 0, 0, 0] },
+  // Real clips from his work (cut from the client's Dropbox), each with its still as poster/fallback
+  "JA Films ident": { src: "/monitor/clips/ja-ident.jpg", video: "/monitor/clips/ja-ident", from: [1.1, 0, 0, 0], to: [1.02, 0, 0, 0] },
+  "Juth ka Shikar (AI film)": { src: "/monitor/clips/juth-field.jpg", video: "/monitor/clips/juth-field", from: [1, 0, 0, 0], to: [1, 0, 0, 0] },
+  "South Africa · skydive": { src: "/monitor/clips/sa-skydive.jpg", video: "/monitor/clips/sa-skydive", from: [1, 0, 0, 0], to: [1, 0, 0, 0] },
+  "Ad film": { src: "/monitor/clips/ad-fire.jpg", video: "/monitor/clips/ad-fire", from: [1, 0, 0, 0], to: [1, 0, 0, 0] },
+  "Story film": { src: "/monitor/clips/story-office.jpg", video: "/monitor/clips/story-office", from: [1, 0, 0, 0], to: [1, 0, 0, 0] },
+  "Sculptor Academy": { src: "/monitor/clips/sculptor-class.jpg", video: "/monitor/clips/sculptor-class", from: [1, 0, 0, 0], to: [1, 0, 0, 0] },
+  "South Africa · aerial": { src: "/monitor/clips/sa-bridge.jpg", video: "/monitor/clips/sa-bridge", from: [1, 0, 0, 0], to: [1, 0, 0, 0] },
 };
 
 // Width of each transition on the timeline, in timeline seconds (centred on the cut).
@@ -185,7 +186,7 @@ function Graphic({ name, k }: { name: string; k: number }) {
   if (name === "Lower third")
     return (
       <div className="mon-lower" style={{ ...style, transform: `translateX(${(1 - o) * -24}px)` }}>
-        <span>A film by</span>
+        <span>Edited by</span>
         <strong>Jayesh Adhikari</strong>
       </div>
     );
