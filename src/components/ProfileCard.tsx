@@ -110,9 +110,18 @@ export default function ProfileCard() {
                 <li key={t}>{t}</li>
               ))}
             </ul>
-            <div className="profile-actions">
-              <a className="pill" href="#contact">
+            <p className="cta-prompt">Want a film like {project.title}?</p>
+            <div className="profile-actions has-prompt">
+              <a
+                className="pill accent cta-pulse"
+                href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(`Hi Jayesh, I saw ${project.title} on your website and would like to talk about a project.`)}`}
+                target="_blank"
+                rel="noopener"
+                data-magnetic
+              >
+                <WhatsappIcon size={16} />
                 Let&apos;s talk
+                <ArrowUpRight size={16} aria-hidden />
               </a>
               <span className="counter">
                 {String((active ?? 0) + 1).padStart(2, "0")} <span>/ {String(projects.length).padStart(2, "0")}</span>

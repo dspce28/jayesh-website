@@ -73,7 +73,9 @@ export default function Effects() {
 
     // Reveal on scroll.
     const onReveal = (el: HTMLElement) => {
-      el.classList.add("is-revealed");
+      // An attribute, not a class: React rewrites className on re-render (e.g. accordion open)
+      // and would wipe a class, hiding the element again.
+      el.setAttribute("data-revealed", "");
       el.querySelectorAll<HTMLElement>("[data-scramble]").forEach((s) => !reduce && scramble(s));
       if (el.matches("[data-scramble]") && !reduce) scramble(el);
       el.querySelectorAll<HTMLElement>("[data-count]").forEach((c) => (reduce ? null : countUp(c)));
@@ -93,6 +95,29 @@ export default function Effects() {
     );
     if (!reduce) document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => io.observe(el));
     cleanups.push(() => io.disconnect());
+
+    // Safety net: a fast fling can carry an element past the viewport between two frames,
+    // so the observer never sees it. Reveal anything that is already above the fold.
+    let sweep = 0;
+    const onScroll = () => {
+      if (sweep) return;
+      sweep = requestAnimationFrame(() => {
+        sweep = 0;
+        document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-revealed])").forEach((el) => {
+          if (el.getBoundingClientRect().top < innerHeight) {
+            onReveal(el);
+            io.unobserve(el);
+          }
+        });
+      });
+    };
+    if (!reduce) {
+      addEventListener("scroll", onScroll, { passive: true });
+      cleanups.push(() => {
+        removeEventListener("scroll", onScroll);
+        cancelAnimationFrame(sweep);
+      });
+    }
 
     if (finePointer && !reduce) {
       // Magnetic buttons.

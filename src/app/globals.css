@@ -622,29 +622,29 @@ html.intro-delay { --intro-wait: 4.2s; }
     scale 0.9s cubic-bezier(.2,.8,.2,1);
   transition-delay: calc(var(--intro-wait, 0s) + var(--i, 0) * 90ms);
 }
-html.js [data-reveal]:not(.is-revealed):not([data-reveal="words"]):not([data-reveal="letters"]):not([data-reveal="line"]) { opacity: 0; translate: 0 28px; }
-html.js [data-reveal="zoom"]:not(.is-revealed) { translate: 0 48px; scale: 0.94; }
-html.js [data-reveal="row"]:not(.is-revealed) { translate: -18px 0; }
+html.js [data-reveal]:not([data-revealed]):not([data-reveal="words"]):not([data-reveal="letters"]):not([data-reveal="line"]) { opacity: 0; translate: 0 28px; }
+html.js [data-reveal="zoom"]:not([data-revealed]) { translate: 0 48px; scale: 0.94; }
+html.js [data-reveal="row"]:not([data-revealed]) { translate: -18px 0; }
 
 /* Words rise out of a mask */
 .word { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.06em 0.02em 0.1em; margin: -0.06em -0.02em -0.1em; }
 .word-in { display: inline-block; transition: translate 1.05s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--intro-wait, 0s) + 0.1s + var(--i, 0) * 75ms); }
-html.js [data-reveal="words"]:not(.is-revealed) .word-in { translate: 0 115%; }
+html.js [data-reveal="words"]:not([data-revealed]) .word-in { translate: 0 115%; }
 
 /* Highlight pills sweep in like a selection on a timeline */
 .hl-solid::before, .hl-soft::before { transition: transform 0.75s cubic-bezier(.7,0,.2,1) calc(var(--intro-wait, 0s) + 0.75s); }
 .hl-solid { transition: color 0.3s calc(var(--intro-wait, 0s) + 1s); }
-html.js .headline:not(.is-revealed) .hl-solid::before,
-html.js .headline:not(.is-revealed) .hl-soft::before { transform: scaleX(0); }
-html.js .headline:not(.is-revealed) .hl-solid { color: var(--text); }
+html.js .headline:not([data-revealed]) .hl-solid::before,
+html.js .headline:not([data-revealed]) .hl-soft::before { transform: scaleX(0); }
+html.js .headline:not([data-revealed]) .hl-solid { color: var(--text); }
 
 /* Journey line draws down */
 .journey::before { transform-origin: top; transition: transform 1.8s cubic-bezier(.2,.8,.2,1); }
-html.js .journey:not(.is-revealed)::before { transform: scaleY(0); }
+html.js .journey:not([data-revealed])::before { transform: scaleY(0); }
 
 /* Footer name: letters rise, then react to hover */
 .letter { display: inline-block; transition: translate 0.9s cubic-bezier(.2,.8,.2,1), opacity 0.9s, transform 0.45s cubic-bezier(.2,.8,.2,1), color 0.3s, -webkit-text-stroke-color 0.3s; transition-delay: calc(var(--i, 0) * 45ms), calc(var(--i, 0) * 45ms), 0s, 0s, 0s; }
-html.js [data-reveal="letters"]:not(.is-revealed) .letter { translate: 0 60%; opacity: 0; }
+html.js [data-reveal="letters"]:not([data-revealed]) .letter { translate: 0 60%; opacity: 0; }
 .foot-name .letter:hover { transform: translateY(-10%) rotate(-4deg); color: var(--accent); -webkit-text-stroke-color: var(--accent); }
 
 .stats strong { font-variant-numeric: tabular-nums; }
@@ -1178,3 +1178,12 @@ dialog .icon-btn { cursor: pointer; }
   .tl-play { width: 44px; height: 44px; }
   .profile-actions .link { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* "Let's talk" on the project card: the primary call to action while browsing work */
+.cta-pulse { height: 48px; padding: 0 22px; font-size: 1rem; animation: cta-ring 2s ease-out infinite; }
+@keyframes cta-ring {
+  0% { box-shadow: 0 10px 30px -8px rgb(255 77 46 / 0.6), 0 0 0 0 rgb(255 77 46 / 0.55); }
+  70%, 100% { box-shadow: 0 10px 30px -8px rgb(255 77 46 / 0.6), 0 0 0 14px rgb(255 77 46 / 0); }
+}
+.face-project .cta-prompt { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--line-2); font-family: var(--display); font-size: 1.15rem; color: var(--text); }
+.face-project .profile-actions.has-prompt { margin-top: 14px; padding-top: 0; border-top: 0; }
