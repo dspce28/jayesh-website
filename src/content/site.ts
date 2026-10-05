@@ -208,7 +208,7 @@ export const journey = [
   { period: "Now", title: "Jayesh Adhikari Films", body: "Writing, directing and editing short films, plus ad films, brand videos and testimonials for clients. 15+ short films recognised at festivals." },
   { period: "2021", title: "Assistant Director, Waah Zindagi", body: "ZEE5 feature directed by Dinesh S Yadav, starring Naveen Kasturia, Plabita Borthakur, Vijay Raaz and Sanjay Mishra." },
   { period: "2014 – 2015", title: "Theatre director", body: "Directed Rangmanch and worked with Rep Market Production on stage work in Ahmedabad." },
-  { period: "TODO", title: "Master of Performing Arts", body: "Advanced study in acting, direction and stagecraft." },
+  { period: "2013", title: "Master of Performing Arts", body: "Advanced study in acting, direction and stagecraft." },
   { period: "2011", title: "Bachelor of Performing Arts", body: "Acting and theatre training; staged Insani Kathputlio Ka Tamasha and Char Din." },
 ];
 

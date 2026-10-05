@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { Color, type ShaderMaterial } from "three";
 
@@ -134,6 +134,20 @@ function Water({ animate }: { animate: boolean }) {
   );
 }
 
+// Drives rendering at ~30fps instead of every display frame, and not at all while the
+// tab is hidden or a modal (video/photo viewer) covers the page. Keeps scrolling smooth.
+function Throttle({ fps = 30 }: { fps?: number }) {
+  const invalidate = useThree((s) => s.invalidate);
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (document.hidden || document.querySelector("dialog[open]")) return;
+      invalidate();
+    }, 1000 / fps);
+    return () => clearInterval(id);
+  }, [invalidate, fps]);
+  return null;
+}
+
 export default function Caustics() {
   const animate = useMemo(
     () => typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -141,11 +155,12 @@ export default function Caustics() {
   );
   return (
     <Canvas
-      dpr={0.75}
-      frameloop={animate ? "always" : "demand"}
+      dpr={0.5}
+      frameloop="demand"
       gl={{ antialias: false, alpha: false, powerPreference: "low-power" }}
     >
       <Water animate={animate} />
+      {animate && <Throttle />}
     </Canvas>
   );
 }

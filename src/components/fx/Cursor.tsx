@@ -33,6 +33,11 @@ export default function Cursor() {
     };
     raf = requestAnimationFrame(loop);
 
+    // Modal dialogs render in the top layer, above this cursor: use the native one there.
+    const syncNative = () => root.classList.toggle("cursor-native", !!document.querySelector("dialog[open]"));
+    const mo = new MutationObserver(syncNative);
+    mo.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["open"] });
+
     const move = (e: PointerEvent) => {
       x = e.clientX;
       y = e.clientY;
@@ -62,7 +67,8 @@ export default function Cursor() {
     window.addEventListener("pointerup", up);
     return () => {
       cancelAnimationFrame(raf);
-      root.classList.remove("has-cursor", "cursor-visible");
+      mo.disconnect();
+      root.classList.remove("has-cursor", "cursor-visible", "cursor-native");
       window.removeEventListener("pointermove", move);
       document.removeEventListener("pointerleave", leave);
       window.removeEventListener("pointerdown", down);

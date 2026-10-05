@@ -163,8 +163,7 @@ a.icon-btn:hover { transform: rotate(45deg); }
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgb(255 255 255 / 0.08);
-  backdrop-filter: blur(8px);
+  background: rgb(30 30 36 / 0.85);
   transition: background-color 0.2s, color 0.2s;
 }
 .socials a:hover { background: var(--accent); color: var(--accent-ink); }
@@ -374,7 +373,7 @@ a.icon-btn:hover { transform: rotate(45deg); }
   -webkit-mask: linear-gradient(#000 0 0) center / 100% 8px no-repeat;
   mask: linear-gradient(#000 0 0) center / 100% 8px no-repeat;
 }
-.work-play { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: rgb(255 255 255 / 0.12); backdrop-filter: blur(10px); border: 1px solid var(--line-2); padding-left: 4px; transition: background-color 0.2s, color 0.2s; }
+.work-play { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: rgb(20 20 24 / 0.55); border: 1px solid var(--line-2); padding-left: 4px; transition: background-color 0.2s, color 0.2s; }
 .work-media.is-hover .work-play { background: var(--accent); color: var(--accent-ink); scale: 1.08; }
 .work-len { position: absolute; right: 18px; bottom: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; padding: 4px 10px; border-radius: 99px; background: rgb(0 0 0 / 0.5); }
 .work-meta { display: none; }
@@ -705,7 +704,7 @@ html.intro-done .intro { display: none; }
 body::after {
   content: "";
   position: fixed;
-  inset: -50%;
+  inset: -8%;
   z-index: 60;
   pointer-events: none;
   opacity: 0.06;
@@ -714,12 +713,13 @@ body::after {
 }
 @keyframes grain {
   0% { transform: translate(0, 0); }
-  20% { transform: translate(-4%, 3%); }
-  40% { transform: translate(3%, -5%); }
-  60% { transform: translate(-6%, -2%); }
-  80% { transform: translate(5%, 4%); }
-  100% { transform: translate(-2%, 6%); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(-1%, 4%); }
 }
+
 
 /* ---- Scroll playhead + timecode ---- */
 .scroll-bar { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 55; pointer-events: none; }
@@ -736,7 +736,7 @@ body::after {
   border-radius: 99px;
   background: rgb(20 20 24 / 0.75);
   border: 1px solid var(--line);
-  backdrop-filter: blur(10px);
+
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.78rem;
   font-variant-numeric: tabular-nums;
@@ -766,8 +766,9 @@ html.cursor-visible .cursor-ring, html.cursor-visible .cursor-dot { opacity: 1; 
 .cursor-ring.is-label + .cursor-dot { opacity: 0; }
 html.has-cursor .work-media.is-hover .work-play { opacity: 0; scale: 0.6; }
 .cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--accent); }
-html.has-cursor, html.has-cursor * { cursor: none !important; }
-html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
+html.has-cursor:not(.cursor-native), html.has-cursor:not(.cursor-native) * { cursor: none !important; }
+html.has-cursor:not(.cursor-native) input, html.has-cursor:not(.cursor-native) textarea { cursor: text !important; }
+html.cursor-native .cursor { display: none; }
 
 /* ---- Tilt + glare ---- */
 [data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.6s cubic-bezier(.2,.8,.2,1), translate 0.9s cubic-bezier(.2,.8,.2,1), scale 0.9s cubic-bezier(.2,.8,.2,1), opacity 0.9s; }
@@ -891,7 +892,7 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
   box-shadow: 0 0 0 1px var(--line), 0 50px 120px -30px #000;
   overflow: hidden;
 }
-.player::backdrop { background: rgb(5 5 7 / 0.82); backdrop-filter: blur(8px); }
+.player::backdrop { background: rgb(5 5 7 / 0.9); }
 .player[open] { animation: player-in 0.45s cubic-bezier(.2,.8,.2,1); }
 .player[open]::backdrop { animation: fade 0.3s ease; }
 @keyframes player-in { from { opacity: 0; scale: 0.94; translate: 0 20px; } }
@@ -921,7 +922,6 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
     border-radius: 50%;
     border: 1px solid var(--line-2);
     background: rgb(20 20 24 / 0.85);
-    backdrop-filter: blur(12px);
     color: var(--text);
     box-shadow: 0 10px 30px -10px #000;
     transition: background-color 0.3s, color 0.3s, rotate 0.4s;
@@ -935,7 +935,6 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
     align-items: center;
     padding: 24px 24px calc(96px + env(safe-area-inset-bottom));
     background: rgb(11 11 13 / 0.96);
-    backdrop-filter: blur(14px);
     clip-path: circle(0 at calc(100% - 43px) calc(100% - 43px));
     visibility: hidden;
     transition: clip-path 0.6s cubic-bezier(.7,0,.2,1), visibility 0s linear 0.6s;
@@ -1129,3 +1128,7 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stats li:last-child { grid-column: 1 / -1; }
 }
+
+/* Keep the vertical availability tab clear of the greeting text */
+@media (min-width: 961px) { .availability { top: 200px; transform: none; } }
+dialog .icon-btn { cursor: pointer; }
