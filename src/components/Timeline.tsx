@@ -3,6 +3,7 @@
 import { Pause, Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { timeline } from "@/content/site";
+import Monitor from "./Monitor";
 
 const { duration: DURATION, fps: FPS, tracks: TRACKS } = timeline;
 const REST = 0.4;
@@ -50,6 +51,18 @@ export default function Timeline() {
   const [p, setPState] = useState(0);
   const [cut, setCut] = useState(false);
   const [playing, setPlaying] = useState(false);
+  // Program monitor: mounted on first interaction (so its images don't load for idle visitors),
+  // shown while playing or scrubbing, hidden shortly after.
+  const [armed, setArmed] = useState(false);
+  const [scrubbing, setScrubbing] = useState(false);
+  const [linger, setLinger] = useState(false);
+  const lingerTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const poke = useCallback(() => {
+    setArmed(true);
+    setLinger(true);
+    if (lingerTimer.current) clearTimeout(lingerTimer.current);
+    lingerTimer.current = setTimeout(() => setLinger(false), 1600);
+  }, []);
   const rootRef = useRef<HTMLDivElement>(null);
   const laneRef = useRef<HTMLDivElement>(null);
   const raf = useRef<number | null>(null);
@@ -64,6 +77,7 @@ export default function Timeline() {
 
   // Real-time playback that loops; the "On screen" caption follows along.
   const play = useCallback(() => {
+    setArmed(true);
     if (raf.current) cancelAnimationFrame(raf.current);
     setPlaying(true);
     let last = performance.now();
@@ -124,6 +138,7 @@ export default function Timeline() {
     }
     if (e.key in next) {
       stopAuto();
+      poke();
       setP(next[e.key]);
       e.preventDefault();
     }
@@ -135,6 +150,7 @@ export default function Timeline() {
 
   return (
     <div className="tl-wrap">
+      {armed && <Monitor t={p * DURATION} visible={playing || scrubbing || linger} timecode={code} playing={playing} />}
       <div
         ref={rootRef}
         className={`tl${cut ? " is-cut" : ""}`}
@@ -150,13 +166,23 @@ export default function Timeline() {
         onKeyDown={onKey}
         onPointerDown={(e) => {
           stopAuto();
+          setArmed(true);
+          setScrubbing(true);
           dragging.current = true;
           rootRef.current?.setPointerCapture(e.pointerId);
           fromPointer(e);
         }}
         onPointerMove={(e) => dragging.current && fromPointer(e)}
-        onPointerUp={() => (dragging.current = false)}
-        onPointerCancel={() => (dragging.current = false)}
+        onPointerUp={() => {
+          dragging.current = false;
+          setScrubbing(false);
+          poke();
+        }}
+        onPointerCancel={() => {
+          dragging.current = false;
+          setScrubbing(false);
+          poke();
+        }}
       >
         <div className="tl-ruler">
           <span />
@@ -212,7 +238,7 @@ export default function Timeline() {
           <button
             type="button"
             className={`tl-play${playing ? " is-playing" : ""}`}
-            onClick={() => (playing ? stopAuto() : play())}
+            onClick={() => (playing ? (stopAuto(), poke()) : play())}
             aria-label={playing ? "Pause timeline" : "Play timeline"}
             data-magnetic="0.25"
           >

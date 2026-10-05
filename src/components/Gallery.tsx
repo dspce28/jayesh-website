@@ -57,7 +57,7 @@ export default function Gallery() {
           {items.map((g, i) => (
             <li
               key={g.src}
-              className={g.src === heroSrc && chapter !== "events" && chapter !== "posters" ? "is-hero" : undefined}
+              className={g.src === heroSrc && (chapter === "all" || chapter === "set") ? "is-hero" : undefined}
               style={{ "--i": i } as React.CSSProperties}
             >
               <button type="button" className="shot" onClick={() => open(i)} aria-label={`Open photo: ${g.caption}`}>

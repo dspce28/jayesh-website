@@ -290,6 +290,7 @@ export const galleryChapters = [
   { id: "all", label: "All" },
   { id: "set", label: "On set" },
   { id: "events", label: "Premieres & events" },
+  { id: "celebs", label: "With celebrities" },
   { id: "posters", label: "Posters" },
 ] as const;
 
@@ -307,7 +308,17 @@ export const gallery: { src: string; w: number; h: number; caption: string; chap
   { src: "/gallery/on-location.jpg", w: 1080, h: 1080, caption: "On location", chapter: "set" },
   { src: "/gallery/bhanwar-premiere.jpg", w: 1034, h: 1034, caption: "Bhanwar premiere", chapter: "events" },
   { src: "/gallery/boss-have-to-dhamaal-premiere.jpg", w: 704, h: 703, caption: "Boss Have To Dhamaal premiere", chapter: "events" },
-  { src: "/gallery/with-sonu-sood.jpg", w: 1280, h: 1280, caption: "On set with Sonu Sood", chapter: "events" },
+  { src: "/gallery/with-sonu-sood.jpg", w: 1280, h: 1280, caption: "On set with Sonu Sood", chapter: "celebs" },
+  // Names below are only given where the photo itself proves who it is. TODO: client to supply the rest.
+  { src: "/gallery/celeb-robert-kiyosaki.jpg", w: 1000, h: 988, caption: "With Robert Kiyosaki, PIC Billionaire Mastermind Retreat", chapter: "celebs" },
+  { src: "/gallery/celeb-pic-event.jpg", w: 1000, h: 1004, caption: "Backstage at a PIC event", chapter: "celebs" },
+  { src: "/gallery/celeb-pic-event-2.jpg", w: 1000, h: 996, caption: "At a PIC event", chapter: "celebs" },
+  { src: "/gallery/celeb-live-event.jpg", w: 1000, h: 1006, caption: "Filming a live event", chapter: "celebs" },
+  { src: "/gallery/celeb-with-cast.jpg", w: 1000, h: 1002, caption: "With the cast", chapter: "celebs" },
+  { src: "/gallery/celeb-shoot-day.jpg", w: 1000, h: 1002, caption: "Shoot day", chapter: "celebs" },
+  { src: "/gallery/celeb-on-set-2.jpg", w: 1000, h: 1230, caption: "On set", chapter: "celebs" },
+  { src: "/gallery/celeb-on-set-3.jpg", w: 1000, h: 994, caption: "On set", chapter: "celebs" },
+  { src: "/gallery/celeb-backstage.jpg", w: 1000, h: 998, caption: "Backstage", chapter: "celebs" },
   { src: "/gallery/waah-zindagi-poster.jpg", w: 1080, h: 1081, caption: "Waah Zindagi (ZEE5), Assistant Director", chapter: "posters" },
   { src: "/gallery/hajji-poster.jpg", w: 1080, h: 820, caption: "The Hajji, prize-winning short film", chapter: "posters" },
   { src: "/gallery/bhanwar-poster.jpg", w: 1066, h: 1600, caption: "Bhanwar (2017), Gujarati feature", chapter: "posters" },

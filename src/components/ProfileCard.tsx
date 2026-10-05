@@ -93,7 +93,8 @@ export default function ProfileCard() {
       <div className="profile-body face-project" aria-hidden={!project} aria-live="polite" key={active ?? "none"}>
         {project && (
           <>
-            <h2>{project.title}</h2>
+            <div className="fp-info">
+              <h2>{project.title}</h2>
             <p>{project.description}</p>
             <dl>
               <div>
@@ -110,7 +111,9 @@ export default function ProfileCard() {
                 <li key={t}>{t}</li>
               ))}
             </ul>
-            <p className="cta-prompt">Want a film like {project.title}?</p>
+            </div>
+            <div className="fp-cta">
+              <p className="cta-prompt">Want a film like {project.title}?</p>
             <div className="profile-actions has-prompt">
               <a
                 className="pill accent cta-pulse"
@@ -126,6 +129,7 @@ export default function ProfileCard() {
               <span className="counter">
                 {String((active ?? 0) + 1).padStart(2, "0")} <span>/ {String(projects.length).padStart(2, "0")}</span>
               </span>
+            </div>
             </div>
           </>
         )}
