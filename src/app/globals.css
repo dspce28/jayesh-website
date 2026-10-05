@@ -1086,3 +1086,46 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
 .quotes figcaption strong { font-weight: 600; }
 .quotes figcaption span { color: var(--muted); font-size: 0.9rem; }
 @media (max-width: 600px) { .quotes { grid-template-columns: 1fr; } }
+
+/* ---- Awards & press ---- */
+.awards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 32px; }
+.awards li:first-child { grid-column: 1 / -1; }
+.award {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: left;
+  color: var(--text);
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--card);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+.award-img { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #0f0f12; }
+.awards li:first-child .award-img { aspect-ratio: 21 / 9; }
+.award-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.25); transition: transform 0.7s cubic-bezier(.2,.8,.2,1), filter 0.4s; }
+.award:hover .award-img img, .award:focus-visible .award-img img { transform: scale(1.05); filter: none; }
+.award-text { display: grid; gap: 4px; padding: 18px 20px 20px; }
+.award-text small { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.award-text strong { font-family: var(--display); font-size: 1.35rem; font-weight: 500; letter-spacing: -0.015em; line-height: 1.15; }
+.awards li:first-child .award-text strong { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.award-text span { color: var(--muted); font-size: 0.93rem; }
+@media (max-width: 600px) { .awards { grid-template-columns: minmax(0, 1fr); } .awards li:first-child .award-img { aspect-ratio: 16 / 10; } }
+
+/* ---- Portrait in the profile card ---- */
+.profile-media img { object-position: center 18%; animation: portrait-drift 24s ease-in-out infinite alternate; }
+@keyframes portrait-drift { from { transform: scale(1.04); } to { transform: scale(1.12) translate(-1.5%, 1%); } }
+
+/* ---- Stats: three equal columns ---- */
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.stats strong { font-size: clamp(2.2rem, 3.6vw, 3.2rem); }
+.stats span { font-size: 0.95rem; }
+@media (max-width: 600px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats li:last-child { grid-column: 1 / -1; }
+}

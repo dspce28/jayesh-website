@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ArrowUpRight, Briefcase, Camera, CircleHelp, Clapperboard, ClipboardList, Film, FolderOpen, Layers, Mail, Phone, Send, Sparkles, UserRound, Wrench } from "lucide-react";
+import { ArrowUpRight, Briefcase, Camera, Trophy, CircleHelp, Clapperboard, ClipboardList, Film, FolderOpen, Layers, Mail, Phone, Send, Sparkles, UserRound, Wrench } from "lucide-react";
 import BriefForm from "@/components/BriefForm";
 import Clock from "@/components/Clock";
 import Gallery from "@/components/Gallery";
@@ -8,6 +8,7 @@ import InView from "@/components/InView";
 import MobileMenu from "@/components/MobileMenu";
 import ProfileCard from "@/components/ProfileCard";
 import RailNav from "@/components/RailNav";
+import Recognition from "@/components/Recognition";
 import ServicesAccordion from "@/components/ServicesAccordion";
 import Testimonials from "@/components/Testimonials";
 import Timeline from "@/components/Timeline";
@@ -183,6 +184,15 @@ export default function Home() {
               Short films that travelled to festivals, and brand work that ships
             </h2>
             <WorkHighlights />
+          </section>
+
+          {/* Awards and press */}
+          <section id="awards">
+            <Tag icon={<Trophy size={14} aria-hidden />}>Awards &amp; press</Tag>
+            <h2 className="title" data-reveal>
+              Prizes, selections and the press
+            </h2>
+            <Recognition />
           </section>
 
           {/* Behind the scenes */}

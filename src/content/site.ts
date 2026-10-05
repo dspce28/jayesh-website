@@ -12,7 +12,7 @@ export const contact = {
 };
 
 // Portrait for the profile card. Drop the file into /public and set the path ("" = monogram placeholder).
-export const portrait = ""; // TODO: e.g. "/jayesh.jpg" (portrait orientation, ~900x1200). Until set, the card cycles on-set photos.
+export const portrait = "/jayesh.jpg"; // "" falls back to the on-set reel below
 
 // Photos for the profile card reel when there is no portrait (from his Carrd gallery).
 export const reel = ["/gallery/camera-operating.jpg", "/gallery/on-set-camera.jpg", "/gallery/interview-setup.jpg", "/gallery/on-set-desk.jpg", "/gallery/presenter-shoot.jpg"];
@@ -149,6 +149,7 @@ export const timeline: { duration: number; fps: number; tracks: TimelineTrack[] 
 // count: animates up to this number. Source: the Jayesh Adhikari Films YouTube channel bio.
 export const stats: { count?: number; value?: string; suffix?: string; label: string }[] = [
   { count: 15, suffix: "+", label: "Short films at national and international festivals" },
+  { count: 5, label: "Festival awards and official selections" },
   { value: "BPA + MPA", label: "Performing arts degrees" },
 ];
 
@@ -181,15 +182,21 @@ export const formats = ["Short films", "Ad films", "Brand videos", "Music videos
 export const about = {
   heading: "Every frame tells a story. I cut for the performance in it.",
   body: [
-    "I'm a filmmaker and editor from Ahmedabad who brings emotions to life through storytelling. Through Jayesh Adhikari Films I make short films, ad films and corporate projects. More than 15 of my short films have been recognised at national and international festivals: Haji won at an international film festival in Singapore, and Rukh was selected at the International Children Film Festival.",
+    "I'm a filmmaker and editor from Ahmedabad who brings emotions to life through storytelling. Through Jayesh Adhikari Films I make short films, ad films and corporate projects. More than 15 of my short films have been recognised at national and international festivals: first prize at the Sabarmati Festival Film Competition, third prize at HCL and Filmwallas' #ACutBeyond for The Hajji, and official selections at the Ahmedabad International Children Film Festival and the Chennai Film Festival.",
     "I trained in performing arts, with a bachelor's and a master's degree, and spent years acting in and directing theatre before I sat at an edit timeline. That is still how I cut: performance first, the pause before a line, the look that lands. Then rhythm, sound and music around it.",
   ],
   credits: [
     { title: "Waah Zindagi", note: "Assistant Director · ZEE5 feature with Sanjay Mishra and Vijay Raaz", year: "2021" },
     { title: "Bhanwar", note: "Gujarati feature, directed by Aditi Thakor", year: "2017" },
-    { title: "Haji", note: "Short film, winner at an international film festival, Singapore", year: "" },
-    { title: "Rukh", note: "Selected, International Children Film Festival", year: "" },
+    { title: "The Last Monday", note: "Honoured at the 2nd LK International Short Film Festival, Kochi", year: "2026" },
+    { title: "Rukh", note: "Director · Official Selection, Ahmedabad International Children Film Festival", year: "2019" },
+    { title: "Lakshya", note: "Co-director with Jalpa Joshi · Official Selection, Chennai Film Festival", year: "2019" },
+    { title: "The Hajji (Haji)", note: "Director · 3rd prize, #ACutBeyond by HCL Technologies and Filmwallas", year: "2017" },
+    { title: "Sabarmati Festival Film Competition", note: "1st prize, ₹1,50,000", year: "2016" },
     { title: "Restart", note: "Official Selection, Divya Bhaskar Short Film Competition", year: "" },
+    { title: "Zehar", note: "Short film · Director and actor", year: "" },
+    { title: "Savdhan India", note: "TV episode · Actor", year: "" },
+    { title: "First short film", note: "Story and actor · praised by Mahesh Bhatt (Gujarat Samay)", year: "" },
     { title: "Rangmanch", note: "Gujarati play, director", year: "2015" },
     { title: "Saari Raat", note: "by Badal Sircar, director", year: "" },
     { title: "Why I?", note: "Short film", year: "2012" },
@@ -210,8 +217,8 @@ export const journey = [
 export const projects = [
   {
     title: "Haji",
-    description: "A boy goes out of his way to help his neighbour experience the holy prayer of Hajj. Winner at an international film festival in Singapore.",
-    year: "2025",
+    description: "A boy goes out of his way to help his neighbour experience the holy prayer of Hajj, with the help of virtual reality. 3rd prize at #ACutBeyond by HCL Technologies and Filmwallas.",
+    year: "2017",
     role: "Director",
     tags: ["Short film", "Award winner", "Drama"],
     length: "8:29",
@@ -219,9 +226,9 @@ export const projects = [
   },
   {
     title: "Rukh",
-    description: "A short film selected at the International Children Film Festival.",
-    year: "2025",
-    role: "Filmmaker",
+    description: "Rukh means expression, and way. Official Selection at the Ahmedabad International Children Film Festival 2019.",
+    year: "2019",
+    role: "Director",
     tags: ["Short film", "Festival selection"],
     length: "4:25",
     youtube: "oToYdnvwIDQ",
@@ -277,21 +284,45 @@ export const quote = {
   by: "Jayesh Adhikari",
 };
 
-// Behind the scenes, from his Carrd gallery. w/h are the file's pixel size.
+// Behind the scenes, from his Carrd page and his own photo folder. w/h are the file's pixel size.
 export const gallery = [
+  { src: "/gallery/location-crew.jpg", w: 1080, h: 1080, caption: "On location with the crew" },
   { src: "/gallery/on-set-camera.jpg", w: 710, h: 518, caption: "On set" },
+  { src: "/gallery/bus-stop-shoot.jpg", w: 1080, h: 1080, caption: "Shooting at a bus stop" },
   { src: "/gallery/edit-timeline.jpg", w: 960, h: 1260, caption: "The edit: Restart on the timeline" },
+  { src: "/gallery/bhanwar-premiere.jpg", w: 1034, h: 1034, caption: "Bhanwar premiere" },
+  { src: "/gallery/cinema-camera.jpg", w: 1080, h: 1060, caption: "Cinema camera setup" },
   { src: "/gallery/waah-zindagi-poster.jpg", w: 1080, h: 1081, caption: "Waah Zindagi (ZEE5), Assistant Director" },
+  { src: "/gallery/camera-prep.jpg", w: 1080, h: 1086, caption: "Camera prep" },
+  { src: "/gallery/hajji-poster.jpg", w: 1080, h: 820, caption: "The Hajji, prize-winning short film" },
+  { src: "/gallery/script-reading.jpg", w: 1080, h: 1076, caption: "Script on set" },
   { src: "/gallery/camera-operating.jpg", w: 960, h: 1280, caption: "Behind the camera" },
+  { src: "/gallery/bhanwar-premiere-2.jpg", w: 972, h: 972, caption: "Bhanwar premiere with the team" },
+  { src: "/gallery/zehar-poster.jpg", w: 990, h: 1000, caption: "Zehar, short film" },
+  { src: "/gallery/on-location.jpg", w: 1080, h: 1080, caption: "On location" },
+  { src: "/gallery/savdhan-india.jpg", w: 416, h: 415, caption: "Savdhan India, TV episode" },
+  { src: "/gallery/boss-have-to-dhamaal-premiere.jpg", w: 704, h: 703, caption: "Boss Have To Dhamaal premiere" },
   { src: "/gallery/studio-setup.jpg", w: 1280, h: 946, caption: "Studio lighting setup" },
   { src: "/gallery/interview-setup.jpg", w: 720, h: 1280, caption: "Interview shoot" },
+  { src: "/gallery/pic-billionaire-retreat.jpg", w: 1080, h: 1066, caption: "Billionaire Mastermind Retreat, PIC × Sneh Desai" },
   { src: "/gallery/with-sonu-sood.jpg", w: 1280, h: 1280, caption: "On set with Sonu Sood" },
   { src: "/gallery/bhanwar-poster.jpg", w: 1066, h: 1600, caption: "Bhanwar (2017), Gujarati feature" },
-  { src: "/gallery/presenter-shoot.jpg", w: 1280, h: 960, caption: "Brand shoot" },
-  { src: "/gallery/jail-set.jpg", w: 960, h: 1138, caption: "Set build" },
-  { src: "/gallery/on-set-desk.jpg", w: 821, h: 630, caption: "Prep" },
-  { src: "/gallery/studio-wide.jpg", w: 1044, h: 612, caption: "Studio floor" },
+  { src: "/gallery/crew-selfie.jpg", w: 1080, h: 1080, caption: "The crew" },
+  { src: "/gallery/theatre-press.jpg", w: 1000, h: 1000, caption: "Theatre, in the press" },
 ];
+
+// Awards, selections and press, each backed by a photo or document he supplied.
+// stats "5" above counts the Award, Official selection and Honour rows here; keep them in sync.
+export const recognition = [
+  { kind: "Award", title: "1st prize", detail: "Sabarmati Festival Film Competition 2016 · ₹1,50,000", src: "/press/sabarmati-first-prize.jpg", w: 1080, h: 1080 },
+  { kind: "Award", title: "3rd prize · The Hajji", detail: "#ACutBeyond short film contest by HCL Technologies and Filmwallas, 2017", src: "/press/filmwallas-making-of-hajji.jpg", w: 1000, h: 988 },
+  { kind: "Official selection", title: "Rukh", detail: "Ahmedabad International Children Film Festival 2019", src: "/press/aicff-rukh-certificate.jpg", w: 1000, h: 682 },
+  { kind: "Official selection", title: "Lakshya", detail: "Chennai Film Festival 2019", src: "/press/lakshya-chennai-selection.jpg", w: 970, h: 1000 },
+  { kind: "Honour", title: "The Last Monday", detail: "2nd LK International Short Film Festival, Kochi, 2026", src: "/press/lkisff-2026-delegate.jpg", w: 758, h: 1000 },
+  { kind: "Press", title: "Praised by Mahesh Bhatt", detail: "Gujarat Samay on his first short film, which he wrote and acted in", src: "/press/gujarat-samay-mahesh-bhatt.jpg", w: 1080, h: 1080 },
+  { kind: "Press", title: "Director of The Hajji", detail: "Filmwallas feature on the prize-winning short", src: "/press/hajji-director.jpg", w: 994, h: 1000 },
+];
+
 
 // Real client quotes only. The section stays hidden while this is empty.
 // To collect them, send past clients the message in TESTIMONIALS.md.
