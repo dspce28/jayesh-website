@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { timeline, type TransitionKind } from "@/content/site";
 
 // Program monitor for the hero timeline: shows the edit at the playhead.
@@ -8,6 +9,9 @@ import { timeline, type TransitionKind } from "@/content/site";
 
 type Shot = {
   src: string;
+  // optional short muted clip, path without extension: "<video>.webm" (VP9) and "<video>.mp4"
+  // (H.264) are both offered; `src` is its poster and the fallback
+  video?: string;
   // transform at the start and end of the clip: [scale, x%, y%, rotateDeg]
   from: [number, number, number, number];
   to: [number, number, number, number];
@@ -69,21 +73,77 @@ function transitionStyles(kind: TransitionKind, q: number): { a: React.CSSProper
   }
 }
 
+// Timeline seconds that pass per real second while playing (Timeline's SPEED)
+const PLAY_SPEED = 4;
+
+// A clip locked to the playhead: plays natively (rate-matched to the clip's length) while the
+// timeline plays, and seeks frame-accurately while scrubbing. Falls back to the still on error.
+function ClipVideo({ shot, label, k, playing, onFail, style }: { shot: Shot; label: string; k: number; playing: boolean; onFail: () => void; style: React.CSSProperties }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+  const clip = v1.find(([, , l]) => l === label);
+  const clipRealSeconds = clip ? (clip[1] - clip[0]) / PLAY_SPEED : 4;
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !ready || !v.duration) return;
+    const want = clamp01(k) * (v.duration - 0.05);
+    if (playing) {
+      v.playbackRate = Math.min(4, Math.max(0.25, v.duration / clipRealSeconds));
+      if (Math.abs(v.currentTime - want) > 0.35) v.currentTime = want;
+      if (v.paused) v.play().catch(() => {});
+    } else {
+      if (!v.paused) v.pause();
+      if (Math.abs(v.currentTime - want) > 0.04) v.currentTime = want;
+    }
+  });
+
+  return (
+    <video
+      ref={ref}
+      poster={shot.src}
+      muted
+      playsInline
+      preload="auto"
+      disablePictureInPicture
+      onLoadedMetadata={() => setReady(true)}
+      style={style}
+    >
+      <source src={`${shot.video}.webm`} type="video/webm" />
+      {/* the last source's error event means no format could be played */}
+      <source src={`${shot.video}.mp4`} type="video/mp4" onError={onFail} />
+    </video>
+  );
+}
+
 // One shot, with its own camera move driven by its clip progress k
-function ShotLayer({ label, k, style }: { label: string; k: number; style?: React.CSSProperties }) {
+function ShotLayer({ label, k, style, playing = false }: { label: string; k: number; style?: React.CSSProperties; playing?: boolean }) {
   const shot = SHOTS[label];
+  const [failed, setFailed] = useState(false);
   if (!shot) return null;
   const kk = ease(clamp01(k));
   const [sc, x, y, r] = shot.from.map((f, j) => lerp(f, shot.to[j], kk));
   return (
     <div className="mon-shot" style={style}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={shot.src}
-        alt=""
-        draggable={false}
-        style={{ objectPosition: shot.pos ?? "center", filter: shot.grade, transform: `translate(${x}%, ${y}%) scale(${sc}) rotate(${r}deg)` }}
-      />
+      {shot.video && !failed ? (
+        <ClipVideo
+          shot={shot}
+          label={label}
+          k={k}
+          playing={playing}
+          onFail={() => setFailed(true)}
+          // real footage carries its own motion, so only a gentle push-in on top
+          style={{ objectPosition: shot.pos ?? "center", filter: shot.grade, transform: `scale(${lerp(1.02, 1.08, kk)})` }}
+        />
+      ) : (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={shot.src}
+          alt=""
+          draggable={false}
+          style={{ objectPosition: shot.pos ?? "center", filter: shot.grade, transform: `translate(${x}%, ${y}%) scale(${sc}) rotate(${r}deg)` }}
+        />
+      )}
       {shot.sweep && <span className="mon-sweep" style={{ left: `${lerp(-60, 140, clamp01(k))}%` }} />}
       {shot.flare && <span className="mon-flare" style={{ left: `${lerp(78, 62, clamp01(k))}%`, opacity: 0.55 + 0.25 * Math.sin(clamp01(k) * Math.PI) }} />}
     </div>
@@ -169,15 +229,15 @@ export default function Monitor({ t, visible, timecode, playing }: { t: number; 
       const st = transitionStyles(kind, q);
       layers = (
         <>
-          <ShotLayer key={a} label={a} k={progress(tr.i)} style={st.a} />
-          <ShotLayer key={b} label={b} k={progress(tr.i + 1)} style={st.b} />
+          <ShotLayer key={a} label={a} k={progress(tr.i)} style={st.a} playing={playing} />
+          <ShotLayer key={b} label={b} k={progress(tr.i + 1)} style={st.b} playing={playing} />
         </>
       );
     }
     if (kind === "leak") fx = <span className="mon-leak" style={{ opacity: Math.sin(q * Math.PI), transform: `translateX(${lerp(-30, 30, q)}%)` }} />;
     if (kind === "whip") fx = <span className="mon-streak" style={{ opacity: Math.sin(q * Math.PI) * 0.7 }} />;
   } else {
-    layers = <ShotLayer key={name} label={name} k={progress(idx)} />;
+    layers = <ShotLayer key={name} label={name} k={progress(idx)} playing={playing} />;
   }
 
   // the last clip fades out under the end card

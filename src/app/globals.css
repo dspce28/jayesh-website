@@ -1253,7 +1253,7 @@ dialog .icon-btn { cursor: pointer; }
 .monitor.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity 0.3s, transform 0.45s cubic-bezier(.2,.8,.2,1), visibility 0s; }
 .mon-screen { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
 .mon-shot { position: absolute; inset: 0; }
-.mon-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; user-select: none; }
+.mon-shot img, .mon-shot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; user-select: none; }
 .mon-sweep { position: absolute; top: -20%; bottom: -20%; width: 28%; background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.35), transparent); transform: skewX(-18deg); mix-blend-mode: overlay; }
 .mon-flare { position: absolute; top: 12%; width: 46%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle, rgb(255 210 140 / 0.9), rgb(255 150 60 / 0.35) 30%, transparent 65%); mix-blend-mode: screen; }
 .mon-black { position: absolute; inset: 0; background: #000; }
