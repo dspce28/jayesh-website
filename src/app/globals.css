@@ -1147,3 +1147,34 @@ html.cursor-native .cursor { display: none; }
 /* Keep the vertical availability tab clear of the greeting text */
 @media (min-width: 961px) { .availability { top: 200px; transform: none; } }
 dialog .icon-btn { cursor: pointer; }
+
+/* =====================================================================
+   Responsive pass
+   ===================================================================== */
+/* Availability: the vertical side tab collided with the greeting on
+   720-800px tall screens; use the inline version at every size. */
+.availability { display: none !important; }
+.availability-inline { display: flex; }
+
+/* Header: keep date/time on one line each on narrow desktops/tablets */
+.clock span { white-space: nowrap; }
+@media (min-width: 961px) and (max-width: 1180px) {
+  .who span span { font-size: 0.82rem; }
+}
+
+/* Grease-pencil circle may extend past the outer frames; don't let it widen the page */
+.sheet { overflow-x: clip; }
+
+/* Phones held sideways: the profile card should not be taller than the screen */
+@media (max-width: 960px) and (orientation: landscape) and (max-height: 520px) {
+  .profile { height: auto; min-height: 0; padding-top: 220px; }
+  .profile-body { position: relative; left: auto; right: auto; bottom: auto; padding: 0 24px 24px; }
+  .profile-media img { object-position: center 25%; }
+}
+
+/* Touch screens: finger-sized targets */
+@media (pointer: coarse) {
+  .rail a { width: 42px; height: 42px; }
+  .tl-play { width: 44px; height: 44px; }
+  .profile-actions .link { display: inline-flex; align-items: center; min-height: 44px; }
+}
