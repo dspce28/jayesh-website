@@ -63,7 +63,7 @@ export default function Effects() {
       };
       intro.addEventListener("click", skip);
       window.addEventListener("keydown", skip, { once: true });
-      const t = setTimeout(() => root.classList.remove("intro-delay"), 2600);
+      const t = setTimeout(() => root.classList.remove("intro-delay"), 4800);
       cleanups.push(() => {
         clearTimeout(t);
         intro.removeEventListener("click", skip);

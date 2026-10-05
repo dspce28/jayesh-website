@@ -90,7 +90,7 @@ export default function Timeline() {
     }
     // Wait for the countdown intro if it is playing.
     const root = document.documentElement;
-    const wait = root.classList.contains("intro-on") && !root.classList.contains("intro-done") ? 2200 : 0;
+    const wait = root.classList.contains("intro-on") && !root.classList.contains("intro-done") ? 4300 : 0;
     const t1 = setTimeout(() => setCut(true), 250 + wait);
     const t2 = setTimeout(() => {
       const start = performance.now();

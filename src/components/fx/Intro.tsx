@@ -1,4 +1,4 @@
-// Film-leader countdown shown once per session (gated by the boot script in layout).
+// Film-leader 4-3-2-1 countdown (one second per number) shown once per session (gated by the boot script in layout).
 // Pure CSS so it starts before hydration; Effects lets a click or key skip it.
 export default function Intro() {
   return (
@@ -10,6 +10,7 @@ export default function Intro() {
         <span className="leader-cross h" />
         <span className="leader-cross v" />
         <div className="leader-nums">
+          <span>4</span>
           <span>3</span>
           <span>2</span>
           <span>1</span>
@@ -17,7 +18,7 @@ export default function Intro() {
       </div>
       <p className="intro-name">
         <span>Jayesh Adhikari</span>
-        <span>Filmmaker · Film editor</span>
+        <span>Creative director · Filmmaker</span>
       </p>
     </div>
   );

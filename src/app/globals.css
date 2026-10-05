@@ -614,7 +614,7 @@ a.icon-btn:hover { transform: rotate(45deg); }
    ===================================================================== */
 
 /* ---- Scroll reveals (only hidden when JS can reveal them) ---- */
-html.intro-delay { --intro-wait: 2.05s; }
+html.intro-delay { --intro-wait: 4.2s; }
 [data-reveal] {
   transition:
     opacity 0.9s cubic-bezier(.2,.8,.2,1),
@@ -661,7 +661,7 @@ html.intro-on .intro {
   background: #0b0b0d;
   clip-path: inset(0 0 0 0);
   cursor: pointer;
-  animation: intro-out 0.75s cubic-bezier(.7,0,.2,1) 1.85s forwards;
+  animation: intro-out 0.8s cubic-bezier(.7,0,.2,1) 4s forwards;
 }
 html.intro-done .intro { display: none; }
 @keyframes intro-out { to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
@@ -674,7 +674,7 @@ html.intro-done .intro { display: none; }
   border: 2px solid rgb(255 255 255 / 0.75);
   box-shadow: 0 0 0 12px rgb(255 255 255 / 0.04), inset 0 0 0 16px #0b0b0d, inset 0 0 0 18px rgb(255 255 255 / 0.35);
 }
-.leader-sweep { position: absolute; inset: 0; background: conic-gradient(rgb(255 255 255 / 0.16) var(--a), transparent 0); animation: sweep 0.6s linear 3; }
+.leader-sweep { position: absolute; inset: 0; background: conic-gradient(rgb(255 255 255 / 0.16) var(--a), transparent 0); animation: sweep 1s linear 4; }
 @keyframes sweep { from { --a: 0deg; } to { --a: 360deg; } }
 .leader-cross { position: absolute; background: rgb(255 255 255 / 0.3); }
 .leader-cross.h { left: -30%; right: -30%; top: 50%; height: 1px; }
@@ -689,10 +689,11 @@ html.intro-done .intro { display: none; }
   font-size: min(32vw, 160px);
   line-height: 1;
   opacity: 0;
-  animation: leader-num 0.6s steps(1, end) forwards;
+  animation: leader-num 1s steps(1, end) forwards;
 }
-.leader-nums span:nth-child(2) { animation-delay: 0.6s; }
-.leader-nums span:nth-child(3) { animation-delay: 1.2s; color: var(--accent); }
+.leader-nums span:nth-child(2) { animation-delay: 1s; }
+.leader-nums span:nth-child(3) { animation-delay: 2s; }
+.leader-nums span:nth-child(4) { animation-delay: 3s; color: var(--accent); }
 @keyframes leader-num { 0% { opacity: 1; } 100% { opacity: 0; } }
 .intro-name { position: absolute; bottom: 9vh; text-align: center; display: grid; gap: 4px; animation: fade-up 0.8s 0.2s both; }
 .intro-name span:first-child { font-family: var(--display); font-size: 1.35rem; letter-spacing: -0.01em; }
@@ -970,7 +971,7 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
   .tick:nth-child(4) span, .tick:nth-child(10) span { display: none; }
 }
 @media (max-width: 420px) {
-  /* Keep the CTA row on one line: the arrow duplicates "Send your footage" */
+  /* Keep the CTA row on one line: the arrow duplicates "Start a project" */
   .face-default .profile-actions .icon-btn { display: none; }
   .profile-actions .link { margin-left: 0; }
 }
@@ -1072,3 +1073,15 @@ html.has-cursor input, html.has-cursor textarea { cursor: text !important; }
 @media (max-width: 600px) {
   .direct { grid-template-columns: 1fr; }
 }
+
+/* ---- Testimonials (shown only when real quotes exist) ---- */
+.quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+.quotes li { border-radius: 22px; background: var(--card); border: 1px solid var(--line); padding: 26px; }
+.quotes li:first-child { grid-column: 1 / -1; background: radial-gradient(80% 120% at 100% 0%, rgb(255 77 46 / 0.14), transparent 60%), var(--card); }
+.quotes figure { margin: 0; display: grid; gap: 20px; height: 100%; }
+.quotes blockquote { margin: 0; font-family: var(--display); font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.01em; color: #e4e4e7; }
+.quotes li:first-child blockquote { font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+.quotes figcaption { align-self: end; display: grid; }
+.quotes figcaption strong { font-weight: 600; }
+.quotes figcaption span { color: var(--muted); font-size: 0.9rem; }
+@media (max-width: 600px) { .quotes { grid-template-columns: 1fr; } }

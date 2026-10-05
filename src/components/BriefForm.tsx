@@ -20,7 +20,7 @@ export default function BriefForm() {
       setStatus("WhatsApp number is not set yet. Add it in src/content/site.ts.");
       return;
     }
-    let text = `Hi Jayesh, I'm ${name}. I have a project that needs editing: ${get("type")}.`;
+    let text = `Hi Jayesh, I'm ${name}. I have a project for you: ${get("type")}.`;
     if (get("deadline")) text += `\nDeadline: ${get("deadline")}.`;
     if (get("msg")) text += `\nAbout it: ${get("msg")}`;
     setStatus("");

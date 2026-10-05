@@ -63,14 +63,14 @@ export default function ProfileCard() {
 
       <div className="availability" aria-hidden>
         <span className="dot" />
-        Available for edits
+        Available for projects
       </div>
 
       {/* Default face: who he is */}
       <div className="profile-body face-default" aria-hidden={!!project}>
         <p className="availability-inline">
           <span className="dot" />
-          Available for edits
+          Available for projects
         </p>
         <p className="hello">
           Hey, I&apos;m <Typing words={typingWords} />
@@ -81,7 +81,7 @@ export default function ProfileCard() {
             <ArrowUpRight size={18} />
           </a>
           <a className="pill accent" href="#contact" tabIndex={project ? -1 : 0} data-magnetic>
-            Send your footage
+            Start a project
           </a>
           <a className="link" href="#work" tabIndex={project ? -1 : 0}>
             See my work

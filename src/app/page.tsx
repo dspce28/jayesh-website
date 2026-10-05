@@ -9,6 +9,7 @@ import MobileMenu from "@/components/MobileMenu";
 import ProfileCard from "@/components/ProfileCard";
 import RailNav from "@/components/RailNav";
 import ServicesAccordion from "@/components/ServicesAccordion";
+import Testimonials from "@/components/Testimonials";
 import Timeline from "@/components/Timeline";
 import WorkHighlights from "@/components/WorkHighlights";
 import Cursor from "@/components/fx/Cursor";
@@ -30,12 +31,14 @@ function Tag({ icon, children }: { icon: React.ReactNode; children: string }) {
 // Hero headline, split into words so they can rise in one after another.
 const HEADLINE: { w: string; hl?: "solid" | "soft" }[] = [
   { w: "I" },
+  { w: "direct," },
+  { w: "shoot" },
+  { w: "&" },
   { w: "cut" },
-  { w: "short films", hl: "solid" },
-  { w: "& ad films", hl: "soft" },
-  { w: "that" },
-  { w: "people" },
-  { w: "remember" },
+  { w: "short films,", hl: "solid" },
+  { w: "ad films", hl: "soft" },
+  { w: "&" },
+  { w: "corporate films", hl: "soft" },
 ];
 
 function Letters({ text, className }: { text: string; className?: string }) {
@@ -83,7 +86,7 @@ export default function Home() {
           <section id="top" className="hero">
             <h1 className="headline" data-reveal="words">
               {HEADLINE.map(({ w, hl }, i) => (
-                <Fragment key={w}>
+                <Fragment key={i}>
                   <span className="word" style={{ "--i": i } as React.CSSProperties}>
                     <span className="word-in">{hl ? <mark className={`hl-${hl}`}>{w}</mark> : w}</span>
                   </span>{" "}
@@ -182,7 +185,7 @@ export default function Home() {
           <section id="work">
             <Tag icon={<Sparkles size={14} aria-hidden />}>Work highlights</Tag>
             <h2 className="title" data-reveal>
-              Films that travelled to festivals, and brand work that ships
+              Short films that travelled to festivals, and brand work that ships
             </h2>
             <WorkHighlights />
           </section>
@@ -197,6 +200,8 @@ export default function Home() {
               <Gallery />
             </div>
           </section>
+
+          <Testimonials />
 
           {/* Services */}
           <section id="services">
@@ -284,7 +289,7 @@ export default function Home() {
           <section id="contact">
             <Tag icon={<Send size={14} aria-hidden />}>Contact</Tag>
             <h2 className="title big" data-reveal>
-              Have footage waiting? Send me a short brief and it opens in WhatsApp, ready to go.
+              Have a film in mind? Send a short brief and it opens in WhatsApp, ready to go.
             </h2>
             <div data-reveal>
               <BriefForm />

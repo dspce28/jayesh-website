@@ -18,18 +18,33 @@ export const portrait = ""; // TODO: e.g. "/jayesh.jpg" (portrait orientation, ~
 export const reel = ["/gallery/camera-operating.jpg", "/gallery/on-set-camera.jpg", "/gallery/interview-setup.jpg", "/gallery/on-set-desk.jpg", "/gallery/presenter-shoot.jpg"];
 
 // Words the profile card types after "Hey, I'm".
-export const typingWords = ["Jayesh", "a filmmaker", "an editor", "a storyteller", "a creative director"];
+export const typingWords = ["Jayesh", "a creative director", "a filmmaker", "a videographer", "an editor"];
 
 export const site = {
   name: "Jayesh Adhikari",
-  tagline: "Filmmaker, editor and creative director, Ahmedabad",
-  intro: "Filmmaker and editor who brings emotions to life through storytelling. Through Jayesh Adhikari Films I make short films, ad films and corporate projects that connect with audiences.",
-  title: "Jayesh Adhikari | Filmmaker and film editor in Ahmedabad",
+  tagline: "Creative director · Filmmaker · Videographer · Editor",
+  intro: "Creative director at Jayesh Adhikari Films. I direct, shoot and edit short films, ad films and corporate projects that connect with audiences, from the first idea to the final cut.",
+  title: "Jayesh Adhikari | Creative director and filmmaker in Ahmedabad",
   description:
-    "Jayesh Adhikari edits short films, ad films and brand videos for filmmakers. Send your footage and get a cut you can be proud of.",
+    "Jayesh Adhikari is a creative director, filmmaker, videographer and editor in Ahmedabad, making short films, ad films and corporate films from idea to final cut.",
 };
 
 export const services = [
+  {
+    title: "Creative direction",
+    tags: ["Concept", "Script", "Direction"],
+    body: "From the first idea to the shot list: concept, script, casting and direction, so the film is planned around the story before a camera rolls.",
+  },
+  {
+    title: "Corporate films",
+    tags: ["Brand story", "Documentary", "Events"],
+    body: "Company stories, documentaries and event films for businesses and institutions, like the 60-year journey of Shree Santram Hospital.",
+  },
+  {
+    title: "Videography",
+    tags: ["Shoot", "Lighting", "Interviews"],
+    body: "On-set camera and lighting for ads, interviews and testimonials, with a crew sized to the project.",
+  },
   {
     title: "Short films and features",
     tags: ["Story", "Pacing", "Performance"],
@@ -92,6 +107,7 @@ export const faq = [
 export const projectTypes = [
   "Short film",
   "Ad film",
+  "Corporate film",
   "Brand video",
   "Music video",
   "Reels and social cuts",
@@ -250,10 +266,10 @@ export const projects = [
 
 // TODO: confirm which tools Jayesh uses and how much. level is 0-100.
 export const tools = [
-  { name: "Adobe Premiere Pro", note: "Editing", level: 90, mark: "Pr", color: "#9999FF", bg: "#00005B" },
-  { name: "DaVinci Resolve", note: "Colour and finishing", level: 75, mark: "Da", color: "#E8E8E8", bg: "#233A51" },
-  { name: "Adobe After Effects", note: "Motion titles", level: 60, mark: "Ae", color: "#D291FF", bg: "#00005B" },
-  { name: "Adobe Audition", note: "Sound cleanup and mix", level: 65, mark: "Au", color: "#00E4BB", bg: "#00005B" },
+  { name: "Adobe Premiere Pro", note: "Editing", level: 98, mark: "Pr", color: "#9999FF", bg: "#00005B" },
+  { name: "DaVinci Resolve", note: "Colour and finishing", level: 97, mark: "Da", color: "#E8E8E8", bg: "#233A51" },
+  { name: "Adobe After Effects", note: "Motion titles", level: 96, mark: "Ae", color: "#D291FF", bg: "#00005B" },
+  { name: "Adobe Audition", note: "Sound cleanup and mix", level: 96, mark: "Au", color: "#00E4BB", bg: "#00005B" },
 ];
 
 export const quote = {
@@ -276,3 +292,7 @@ export const gallery = [
   { src: "/gallery/on-set-desk.jpg", w: 821, h: 630, caption: "Prep" },
   { src: "/gallery/studio-wide.jpg", w: 1044, h: 612, caption: "Studio floor" },
 ];
+
+// Real client quotes only. The section stays hidden while this is empty.
+// To collect them, send past clients the message in TESTIMONIALS.md.
+export const testimonials: { quote: string; name: string; role: string; project?: string }[] = [];
