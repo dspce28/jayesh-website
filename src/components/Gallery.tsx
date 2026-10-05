@@ -15,8 +15,9 @@ export default function Gallery() {
   const dialog = useRef<HTMLDialogElement>(null);
   const swipe = useRef<number | null>(null);
 
+  let k = 0;
   const items = gallery
-    .map((g, i) => ({ ...g, n: i }))
+    .map((g) => ({ ...g, label: g.frame ?? frameNo(k++) }))
     .filter((g) => chapter === "all" || g.chapter === chapter);
   const heroSrc = gallery.find((g) => g.chapter === "set")?.src;
   const current = index === null ? null : items[index];
@@ -69,7 +70,7 @@ export default function Gallery() {
                   </svg>
                 </span>
                 <span className="shot-cap">
-                  <span>{frameNo(g.n)}</span>
+                  <span>{g.label}</span>
                   {g.caption}
                 </span>
               </button>
@@ -77,7 +78,7 @@ export default function Gallery() {
           ))}
         </ul>
         <p className="sheet-edge bottom" aria-hidden>
-          ▸ {frameNo(items[0]?.n ?? 0)} — {frameNo(items[items.length - 1]?.n ?? 0)}
+          ▸ {items[0]?.label} — {items[items.length - 1]?.label}
         </p>
       </div>
 
@@ -98,7 +99,7 @@ export default function Gallery() {
               <div>
                 <strong>{current.caption}</strong>
                 <span>
-                  Frame {frameNo(current.n)} · {(index ?? 0) + 1} / {items.length}
+                  Frame {current.label} · {(index ?? 0) + 1} / {items.length}
                 </span>
               </div>
               <div className="lightbox-nav">

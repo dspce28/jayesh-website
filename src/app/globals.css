@@ -1321,3 +1321,9 @@ dialog .icon-btn { cursor: pointer; }
 .mon-clip.is-fx { color: var(--accent); }
 .lane .clip.v:not(:first-child) { padding-left: 18px; }
 @media (max-width: 600px) { .lane .clip.v:not(:first-child) { padding-left: 12px; } }
+
+/* Portrait: black and white, slowly blooms into colour on hover (pointer devices only) */
+.profile-media img { transition: filter 1.8s ease; }
+@media (hover: hover) {
+  .profile:hover .profile-media img { filter: grayscale(0) contrast(1.05); }
+}

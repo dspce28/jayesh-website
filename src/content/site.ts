@@ -308,7 +308,9 @@ export const galleryChapters = [
 
 export type GalleryChapter = (typeof galleryChapters)[number]["id"];
 
-export const gallery: { src: string; w: number; h: number; caption: string; chapter: Exclude<GalleryChapter, "all"> }[] = [
+// `frame` overrides the edge number, so a new cover shot doesn't renumber the frames already referenced by name.
+export const gallery: { src: string; w: number; h: number; caption: string; chapter: Exclude<GalleryChapter, "all">; frame?: string }[] = [
+  { src: "/gallery/studio-team.jpg", w: 1600, h: 1200, caption: "At the studio with the team", chapter: "set", frame: "00" },
   { src: "/gallery/location-crew.jpg", w: 1080, h: 1080, caption: "On location with the crew", chapter: "set" },
   { src: "/gallery/cinema-camera.jpg", w: 1080, h: 1060, caption: "Cinema camera setup", chapter: "set" },
   { src: "/gallery/bus-stop-shoot.jpg", w: 1080, h: 1080, caption: "Shooting at a bus stop", chapter: "set" },
